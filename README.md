@@ -68,3 +68,52 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+
+
+
+
+
+
+
+key-distribution-simulator/
+├── public/
+│   ├── index.html
+│   └── favicon.ico
+├── src/
+│   ├── components/
+│   │   ├── classical/
+│   │   │   ├── ClassicalSimulator.jsx
+│   │   │   ├── KeyExchangeVisualization.jsx
+│   │   │   ├── EncryptionDecryptionDemo.jsx
+│   │   │   └── SecurityMeter.jsx
+│   │   ├── quantum/
+│   │   │   ├── QuantumSimulator.jsx
+│   │   │   ├── PhotonVisualization.jsx
+│   │   │   ├── EavesdropperDetector.jsx
+│   │   │   └── QuantumAdvantages.jsx
+│   │   ├── shared/
+│   │   │   ├── Header.jsx
+│   │   │   ├── ControlPanel.jsx
+│   │   │   ├── NetworkVisualization.jsx
+│   │   │   └── KeyGenerator.jsx
+│   │   └── comparison/
+│   │       ├── SideBySideComparison.jsx
+│   │       ├── StatsDashboard.jsx
+│   │       └── TimelineVisualization.jsx
+│   ├── utils/
+│   │   ├── cryptography.js
+│   │   ├── quantumSimulation.js
+│   │   └── animationHelpers.js
+│   ├── styles/
+│   │   ├── App.css
+│   │   ├── classical.css
+│   │   ├── quantum.css
+│   │   └── shared.css
+│   ├── App.jsx
+│   ├── index.js
+│   └── constants.js
+├── package.json
+└── README.md

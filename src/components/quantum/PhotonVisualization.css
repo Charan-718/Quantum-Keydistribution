@@ -1,0 +1,388 @@
+/* PhotonVisualization Component Styles */
+@import '../../styles/variables.css';
+
+.photon-visualization {
+  background: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.photon-visualization::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 50% 50%, rgba(0, 229, 255, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.viz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
+  z-index: 1;
+}
+
+.viz-header h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.viz-stats {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.viz-stats .stat {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--tertiary-bg);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.quantum-channel {
+  position: relative;
+  height: 300px;
+  background: var(--primary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-lg);
+  overflow: hidden;
+}
+
+.channel-tube {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    var(--quantum-cyan), 
+    transparent);
+  transform: translateY(-50%);
+  filter: blur(1px);
+}
+
+.tube-glow {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(0, 229, 255, 0.1), 
+    transparent);
+  transform: translateY(-50%);
+  filter: blur(10px);
+  animation: tubePulse 2s ease-in-out infinite;
+}
+
+@keyframes tubePulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
+.interference-point {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--quantum-cyan);
+  border-radius: 50%;
+  filter: blur(1px);
+  animation: interference 3s ease-in-out infinite;
+}
+
+@keyframes interference {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.5); opacity: 0.1; }
+}
+
+.photon-particle {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--quantum-cyan);
+  box-shadow: 0 0 10px var(--quantum-cyan);
+  transition: all var(--transition-normal);
+  z-index: 10;
+}
+
+.photon-particle.rect {
+  background: var(--quantum-cyan);
+  box-shadow: 0 0 10px var(--quantum-cyan);
+}
+
+.photon-particle.diag {
+  background: var(--secure-emerald);
+  box-shadow: 0 0 10px var(--secure-emerald);
+}
+
+.photon-particle.disturbed {
+  background: var(--alert-crimson);
+  box-shadow: 0 0 15px var(--alert-crimson);
+  animation: photonDisturbance 0.5s ease-in-out;
+}
+
+@keyframes photonDisturbance {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.5); }
+}
+
+.photon-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  filter: blur(1px);
+}
+
+.photon-trail {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    var(--quantum-cyan), 
+    transparent);
+  transform: translate(-50%, -50%);
+  filter: blur(1px);
+  opacity: 0.7;
+}
+
+.disturbance-effect {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: disturbancePulse 1s ease-out;
+}
+
+@keyframes disturbancePulse {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
+}
+
+.disturbance-ring {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--alert-crimson);
+  border-radius: 50%;
+}
+
+.disturbance-text {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.6rem;
+  color: var(--alert-crimson);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.channel-endpoint {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 80px;
+  padding: var(--spacing-sm);
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  text-align: center;
+  backdrop-filter: blur(5px);
+}
+
+.channel-endpoint.source {
+  left: 20px;
+  border-color: var(--quantum-cyan);
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+}
+
+.channel-endpoint.detector {
+  right: 20px;
+  border-color: var(--secure-emerald);
+  box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+}
+
+.endpoint-icon {
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.endpoint-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing-xs);
+  white-space: nowrap;
+}
+
+.endpoint-status {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.eavesdropper-probe {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: rgba(255, 46, 92, 0.2);
+  border: 2px solid var(--alert-crimson);
+  border-radius: 20px;
+  text-align: center;
+  animation: probeFloat 3s ease-in-out infinite;
+  backdrop-filter: blur(5px);
+}
+
+@keyframes probeFloat {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-10px); }
+}
+
+.probe-icon {
+  font-size: 1.2rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.probe-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--alert-crimson);
+  margin-bottom: 0.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.probe-status {
+  font-size: 0.6rem;
+  color: var(--alert-crimson);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.polarization-legend {
+  background: var(--tertiary-bg);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+  border: 1px solid var(--border-color);
+}
+
+.legend-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.legend-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.legend-symbol {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.legend-symbol.rect.vertical {
+  background: var(--quantum-cyan-light);
+  color: var(--quantum-cyan);
+  border: 1px solid var(--quantum-cyan);
+}
+
+.legend-symbol.diag.deg45 {
+  background: var(--secure-emerald-light);
+  color: var(--secure-emerald);
+  border: 1px solid var(--secure-emerald);
+  transform: rotate(45deg);
+}
+
+.legend-symbol.disturbed {
+  background: rgba(255, 46, 92, 0.2);
+  color: var(--alert-crimson);
+  border: 1px solid var(--alert-crimson);
+}
+
+.quantum-principle {
+  background: var(--tertiary-bg);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+  border: 1px solid var(--border-color);
+}
+
+.quantum-principle h4 {
+  margin: 0 0 var(--spacing-sm) 0;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.quantum-principle p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-sm);
+}
+
+.quantum-principle p strong {
+  color: var(--quantum-cyan);
+  font-weight: 600;
+}
+
+.principle-warning {
+  margin-top: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  background: rgba(255, 167, 38, 0.1);
+  border: 1px solid var(--warning-amber);
+  border-radius: var(--radius-sm);
+  color: var(--warning-amber);
+  font-size: 0.8rem;
+}

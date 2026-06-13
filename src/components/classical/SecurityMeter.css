@@ -1,0 +1,427 @@
+/* SecurityMeter Component Styles */
+/* @import '../../../styles/variables.css'; */
+
+.security-meter {
+  background: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  height: 100%;
+}
+
+.meter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.meter-header h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.security-status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: var(--tertiary-bg);
+  border: 1px solid var(--border-color);
+}
+
+.meter-visualization {
+  margin-bottom: var(--spacing-xl);
+}
+
+.meter-bar {
+  height: 20px;
+  background: var(--tertiary-bg);
+  border-radius: 10px;
+  margin-bottom: var(--spacing-sm);
+  overflow: hidden;
+  position: relative;
+}
+
+.meter-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: all var(--transition-normal);
+  position: relative;
+}
+
+.meter-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.2), 
+    transparent);
+  animation: shimmer 2s infinite linear;
+}
+
+.meter-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-xs);
+}
+
+.meter-percentage {
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: var(--spacing-sm);
+}
+
+.security-indicators {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-sm);
+  background: var(--tertiary-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.indicator-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.indicator-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: 'SF Mono', monospace;
+}
+
+.indicator-value.good {
+  color: var(--secure-emerald);
+}
+
+.indicator-value.bad {
+  color: var(--warning-amber);
+}
+
+.indicator-value.critical {
+  color: var(--alert-crimson);
+  animation: pulseCritical 1s ease-in-out infinite;
+}
+
+@keyframes pulseCritical {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.brute-force-resistance {
+  background: var(--tertiary-bg);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  border: 1px solid var(--border-color);
+}
+
+.brute-force-resistance h4 {
+  margin: 0 0 var(--spacing-sm) 0;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.resistance-bar {
+  height: 8px;
+  background: var(--secondary-bg);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--spacing-sm);
+  overflow: hidden;
+}
+
+.resistance-fill {
+  height: 100%;
+  border-radius: var(--radius-sm);
+  transition: width var(--transition-normal);
+}
+
+.resistance-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.time-estimate {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: 'SF Mono', monospace;
+}
+
+.time-context {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.threat-analysis {
+  background: var(--tertiary-bg);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  border: 1px solid var(--border-color);
+}
+
+.threat-analysis h4 {
+  margin: 0 0 var(--spacing-sm) 0;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.threats-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.threat-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  background: rgba(255, 167, 38, 0.1);
+  border: 1px solid var(--warning-amber);
+  border-radius: var(--radius-sm);
+}
+
+.threat-icon {
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.threat-text {
+  font-size: 0.8rem;
+  color: var(--warning-amber);
+  flex: 1;
+}
+
+.no-threats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl);
+  color: var(--text-muted);
+}
+
+.safe-icon {
+  font-size: 2rem;
+  margin-bottom: var(--spacing-sm);
+  color: var(--secure-emerald);
+}
+
+.safe-text {
+  font-size: 0.9rem;
+  color: var(--secure-emerald);
+}
+
+.vulnerability-report {
+  background: var(--tertiary-bg);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  border: 1px solid var(--border-color);
+}
+
+.vulnerability-report h4 {
+  margin: 0 0 var(--spacing-sm) 0;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.vulnerabilities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--spacing-sm);
+}
+
+.vulnerability {
+  padding: var(--spacing-sm);
+  background: var(--secondary-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  text-align: center;
+  transition: all var(--transition-normal);
+}
+
+.vulnerability.critical {
+  border-color: var(--alert-crimson);
+  background: rgba(255, 46, 92, 0.1);
+  animation: pulseVulnerability 2s ease-in-out infinite;
+}
+
+@keyframes pulseVulnerability {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 46, 92, 0); }
+  50% { box-shadow: 0 0 0 5px rgba(255, 46, 92, 0.1); }
+}
+
+.vulnerability.high {
+  border-color: var(--warning-amber);
+  background: rgba(255, 167, 38, 0.1);
+}
+
+.vulnerability.medium {
+  border-color: var(--classical-blue);
+  background: var(--classical-blue-light);
+}
+
+.vulnerability.low {
+  border-color: var(--text-muted);
+}
+
+.vuln-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.vuln-severity {
+  font-size: 0.7rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.vuln-severity.critical {
+  background: var(--alert-crimson);
+  color: var(--primary-bg);
+}
+
+.vuln-severity.high {
+  background: var(--warning-amber);
+  color: var(--primary-bg);
+}
+
+.vuln-severity.medium {
+  background: var(--classical-blue);
+  color: var(--primary-bg);
+}
+
+.vuln-severity.low {
+  background: var(--text-muted);
+  color: var(--primary-bg);
+}
+
+.no-vulnerabilities {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl);
+  color: var(--text-muted);
+}
+
+.secure-icon {
+  font-size: 2rem;
+  margin-bottom: var(--spacing-sm);
+  color: var(--secure-emerald);
+}
+
+.secure-text {
+  font-size: 0.9rem;
+  color: var(--secure-emerald);
+}
+
+.security-recommendations {
+  background: var(--tertiary-bg);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+}
+
+.security-recommendations h4 {
+  margin: 0 0 var(--spacing-sm) 0;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.recommendations-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.recommendation {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+}
+
+.recommendation.critical {
+  background: rgba(255, 46, 92, 0.1);
+  border: 1px solid var(--alert-crimson);
+  color: var(--alert-crimson);
+}
+
+.recommendation.high {
+  background: rgba(255, 167, 38, 0.1);
+  border: 1px solid var(--warning-amber);
+  color: var(--warning-amber);
+}
+
+.recommendation.medium {
+  background: var(--classical-blue-light);
+  border: 1px solid var(--classical-blue);
+  color: var(--classical-blue);
+}
+
+.recommendation.good {
+  background: var(--secure-emerald-light);
+  border: 1px solid var(--secure-emerald);
+  color: var(--secure-emerald);
+}
+
+.rec-icon {
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.rec-text {
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .security-indicators {
+    grid-template-columns: 1fr;
+  }
+  
+  .vulnerabilities-grid {
+    grid-template-columns: 1fr;
+  }
+}
