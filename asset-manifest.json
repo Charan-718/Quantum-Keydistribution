@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Quantum-Keydistribution/static/css/main.7663d7ec.css",
+    "main.js": "/Quantum-Keydistribution/static/js/main.58f3db4e.js",
+    "static/js/453.6b2551eb.chunk.js": "/Quantum-Keydistribution/static/js/453.6b2551eb.chunk.js",
+    "index.html": "/Quantum-Keydistribution/index.html",
+    "main.7663d7ec.css.map": "/Quantum-Keydistribution/static/css/main.7663d7ec.css.map",
+    "main.58f3db4e.js.map": "/Quantum-Keydistribution/static/js/main.58f3db4e.js.map",
+    "453.6b2551eb.chunk.js.map": "/Quantum-Keydistribution/static/js/453.6b2551eb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7663d7ec.css",
+    "static/js/main.58f3db4e.js"
+  ]
+}
