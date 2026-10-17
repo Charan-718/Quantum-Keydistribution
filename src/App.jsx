@@ -4,6 +4,8 @@ import Header from './components/shared/Header';
 import SideBySideComparison from './components/comparison/SideBySideComparison';
 import ControlPanel from './components/shared/ControlPanel';
 import StatsDashboard from './components/comparison/StatsDashboard';
+import ClassicalSimulator from './components/classical/ClassicalSimulator';
+import QuantumSimulator from './components/quantum/QuantumSimulator';
 import './styles/App.css';
 import './styles/variables.css';
 
@@ -42,15 +44,26 @@ function App() {
         
         {activeTab === 'classical' && (
           <div className="single-view">
-            <h2>Classical Key Distribution (RSA/Diffie-Hellman)</h2>
-            {/* ClassicalSimulator component would go here */}
+            <h2 style={{ marginBottom: '1.5rem', color: 'var(--classical-blue, #4DABFF)' }}>
+              Classical Key Distribution (RSA / Diffie-Hellman)
+            </h2>
+            <ClassicalSimulator
+              simulationSpeed={simulationSpeed}
+              showEavesdropper={showEavesdropper}
+              keySize={keySize}
+            />
           </div>
         )}
         
         {activeTab === 'quantum' && (
           <div className="single-view">
-            <h2>Quantum Key Distribution (BB84 Protocol)</h2>
-            {/* QuantumSimulator component would go here */}
+            <h2 style={{ marginBottom: '1.5rem', color: 'var(--quantum-cyan, #00E5FF)' }}>
+              Quantum Key Distribution (BB84 Protocol)
+            </h2>
+            <QuantumSimulator
+              simulationSpeed={simulationSpeed}
+              showEavesdropper={showEavesdropper}
+            />
           </div>
         )}
       </main>
