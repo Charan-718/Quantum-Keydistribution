@@ -1,0 +1,166 @@
+/* File: src/components/ui/Modal.css */
+
+.ui-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background-color: rgba(2, 20, 18, 0.88);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  animation: modalFadeIn var(--duration-fast) var(--ease-standard);
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.ui-modal-container {
+  width: 100%;
+  max-height: 85vh;
+  background: var(--keycap-white-surface);
+  border-top: var(--keycap-white-border-top) !important;
+  border-left: var(--keycap-white-border-left) !important;
+  border-right: var(--keycap-white-border-right) !important;
+  border-bottom: 12px solid #64748b !important;
+  border-radius: var(--keycap-radius-lg, 24px);
+  box-shadow: 
+    0 0 0 5px #002aff,
+    0 5px 0 5px #001899,
+    inset 0 2px 2px #ffffff,
+    0 25px 60px rgba(0, 20, 80, 0.45) !important;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalScaleIn var(--duration-normal) var(--ease-decelerate);
+}
+
+[data-theme="dark"] .ui-modal-container {
+  background: linear-gradient(180deg, #1f222e 0%, #151722 60%, #0d0f18 100%) !important;
+  border-top: 2.5px solid rgba(255, 255, 255, 0.24) !important;
+  border-left: 2px solid rgba(255, 255, 255, 0.14) !important;
+  border-right: 4px solid #08090d !important;
+  border-bottom: 12px solid #06070a !important;
+  box-shadow: 
+    0 0 0 5px #002aff,
+    0 5px 0 5px #001275,
+    inset 0 2px 1px rgba(255, 255, 255, 0.18),
+    0 25px 65px rgba(0, 0, 0, 0.9) !important;
+}
+
+@keyframes modalScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.ui-modal-header {
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--color-border-subtle);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.ui-modal-title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-1) 0;
+  line-height: var(--line-height-tight);
+}
+
+.ui-modal-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: var(--line-height-normal);
+}
+
+.ui-modal-close-btn {
+  background: transparent;
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-text-secondary);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-standard);
+  flex-shrink: 0;
+}
+
+.ui-modal-close-btn:hover {
+  background: var(--color-surface-interactive);
+  color: var(--color-text-primary);
+  border-color: var(--color-border-default);
+}
+
+.ui-modal-body {
+  padding: var(--space-6);
+  overflow-y: auto;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.ui-modal-body h3 {
+  font-family: var(--font-display);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: var(--space-2) 0 0 0;
+}
+
+.ui-modal-body p {
+  margin: 0;
+}
+
+.ui-modal-body ul {
+  padding-left: var(--space-5);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ui-modal-footer {
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--color-border-subtle);
+  background-color: var(--color-surface-elevated);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ui-modal-done-btn {
+  background-color: var(--color-quantum-primary);
+  color: #ffffff;
+  border: 1px solid var(--color-quantum-primary);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+.ui-modal-done-btn:hover {
+  background-color: var(--color-quantum-hover);
+}
+

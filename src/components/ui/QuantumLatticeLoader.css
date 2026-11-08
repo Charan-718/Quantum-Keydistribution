@@ -1,0 +1,189 @@
+/* File: src/components/ui/QuantumLatticeLoader.css */
+
+.quantum-lattice-loader {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  z-index: 40;
+  background: transparent;
+  pointer-events: none;
+}
+
+.quantum-lattice-loader.is-compact {
+  gap: 12px;
+}
+
+/* 1. Mechanical Keycap Central Housing */
+.loader-keycap-housing {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantum-lattice-loader.is-compact .loader-keycap-housing {
+  width: 64px;
+  height: 64px;
+}
+
+.loader-bloch-orbit {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+  pointer-events: none;
+}
+
+.loader-bloch-orbit.orbit-1 {
+  inset: 0;
+  border-top-color: #002aff;
+  border-bottom-color: rgba(0, 42, 255, 0.4);
+  animation: loaderSpinCW 5s linear infinite;
+}
+
+.loader-bloch-orbit.orbit-2 {
+  inset: 8px;
+  border-left-color: #38bdf8;
+  border-right-color: rgba(56, 189, 248, 0.4);
+  animation: loaderSpinCCW 3.5s linear infinite;
+}
+
+.loader-bloch-orbit.orbit-3 {
+  inset: 16px;
+  border-top-color: #ffd600;
+  border-right-color: transparent;
+  animation: loaderPulse 2s ease-in-out infinite;
+}
+
+.loader-center-photon {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: loaderFloat 2.4s ease-in-out infinite;
+}
+
+@keyframes loaderSpinCW {
+  0% { transform: rotate(0deg) rotateX(60deg); }
+  100% { transform: rotate(360deg) rotateX(60deg); }
+}
+
+@keyframes loaderSpinCCW {
+  0% { transform: rotate(0deg) rotateY(60deg); }
+  100% { transform: rotate(-360deg) rotateY(60deg); }
+}
+
+@keyframes loaderPulse {
+  0%, 100% { transform: scale(0.95); opacity: 0.6; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+
+@keyframes loaderFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* 2. Telemetry Cluster (Mechanical 3D Keycap Pill) */
+.loader-telemetry-cluster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: rgba(10, 15, 30, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 10px 24px;
+  border-radius: 9px;
+  border: 1.5px solid #002aff;
+  box-shadow: 
+    0 0 0 2px rgba(0, 42, 255, 0.35),
+    0 8px 24px rgba(0, 0, 0, 0.6),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="light"] .loader-telemetry-cluster {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1.5px solid #002aff;
+  box-shadow: 
+    0 0 0 2px rgba(0, 42, 255, 0.25),
+    0 8px 20px rgba(0, 20, 80, 0.18),
+    inset 0 1px 1px #ffffff;
+}
+
+.loader-status-kicker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+[data-theme="light"] .loader-status-kicker {
+  color: #0f172a;
+}
+
+.loader-himawari-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffd600;
+  box-shadow: 0 0 8px #ffd600;
+  animation: himawariBlink 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes himawariBlink {
+  0% { opacity: 0.4; transform: scale(0.85); }
+  100% { opacity: 1; transform: scale(1.15); }
+}
+
+.loader-gauge-rail {
+  width: 190px;
+  height: 3.5px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+[data-theme="light"] .loader-gauge-rail {
+  background: rgba(0, 42, 255, 0.12);
+}
+
+.loader-gauge-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(90deg, #002aff, #38bdf8, #ffd600);
+  border-radius: 3px;
+  animation: loaderGaugeScan 1.6s ease-in-out infinite;
+}
+
+@keyframes loaderGaugeScan {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(120%); }
+  100% { transform: translateX(250%); }
+}
+
+.loader-state-notation {
+  font-family: var(--font-mono, monospace);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+}
+
+[data-theme="light"] .loader-state-notation {
+  color: #475569;
+}

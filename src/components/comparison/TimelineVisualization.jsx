@@ -1,5 +1,13 @@
 // File: src/components/comparison/TimelineVisualization.jsx
 import React, { useState, useEffect } from 'react';
+import Badge from '../ui/Badge';
+import {
+  ActivityIcon,
+  CheckCircleIcon,
+  AlertTriangleIcon,
+  ShieldCheckIcon,
+  InfoIcon
+} from '../ui/Icons';
 import '../../styles/shared.css';
 
 function TimelineVisualization({ showEavesdropper }) {
@@ -11,71 +19,71 @@ function TimelineVisualization({ showEavesdropper }) {
     {
       year: 1976,
       title: 'Diffie-Hellman Published',
-      description: 'First public-key cryptography protocol',
+      description: 'First public-key cryptography protocol establishing asymmetric mathematics.',
       type: 'classical',
       impact: 'High',
       status: 'active'
     },
     {
       year: 1994,
-      title: 'Shor\'s Algorithm',
-      description: 'Quantum algorithm breaks RSA/DH',
+      title: "Shor's Algorithm Formulated",
+      description: 'Polynomial time quantum factoring proves classical RSA & ECC vulnerable.',
       type: 'quantum-threat',
       impact: 'Critical',
       status: 'future'
     },
     {
       year: 2000,
-      title: 'AES Standardized',
-      description: 'Advanced Encryption Standard adopted',
+      title: 'AES Standardized (FIPS 197)',
+      description: 'Symmetric block cipher standard; resilient against quantum attacks with 256-bit keys.',
       type: 'classical',
       impact: 'High',
       status: 'active'
     },
     {
       year: 2008,
-      title: 'First QKD Network',
-      description: 'Secure communication using quantum keys',
+      title: 'First Metropolitan QKD Network',
+      description: 'Operational quantum key distribution deployed across fiber optic infrastructure.',
       type: 'quantum',
       impact: 'Medium',
       status: 'emerging'
     },
     {
       year: 2016,
-      title: 'NIST Post-Quantum Competition',
-      description: 'Search for quantum-resistant algorithms',
+      title: 'NIST Post-Quantum Cryptography Project',
+      description: 'Global standardisation initiative for quantum-resistant lattice and hash algorithms.',
       type: 'transition',
       impact: 'High',
       status: 'active'
     },
     {
       year: 2022,
-      title: 'First Quantum Advantage',
-      description: 'Quantum computers surpass classical',
+      title: 'Quantum Advantage Demonstrated',
+      description: 'Superconducting processors demonstrate quantum computational speedup.',
       type: 'quantum-threat',
       impact: 'Critical',
       status: 'imminent'
     },
     {
       year: 2024,
-      title: 'Hybrid Cryptography Deployed',
-      description: 'Classical + Post-quantum in production',
+      title: 'Hybrid Quantum-Safe Standards Released',
+      description: 'FIPS 203, 204, and 205 finalized alongside active QKD fiber trunks.',
       type: 'transition',
       impact: 'High',
       status: 'current'
     },
     {
       year: 2030,
-      title: 'Cryptographically Relevant Quantum Computer',
-      description: 'Quantum computers break current crypto',
+      title: 'Cryptographically Relevant Quantum System',
+      description: 'Estimated arrival of fault-tolerant quantum hardware breaking legacy public keys.',
       type: 'quantum-threat',
       impact: 'Critical',
       status: 'future'
     },
     {
       year: 2035,
-      title: 'Quantum Internet',
-      description: 'Global quantum-secure network',
+      title: 'Global Entanglement Quantum Internet',
+      description: 'Satellite and fiber quantum repeater mesh providing unconditional key security.',
       type: 'quantum',
       impact: 'Transformative',
       status: 'future'
@@ -91,14 +99,12 @@ function TimelineVisualization({ showEavesdropper }) {
           return 100;
         }
         
-        // Update current year based on progress
         const yearsRange = 2035 - 1976;
-        const currentYear = 1976 + Math.floor((newProgress / 100) * yearsRange);
-        setCurrentYear(currentYear);
+        const calcYear = 1976 + Math.floor((newProgress / 100) * yearsRange);
+        setCurrentYear(calcYear);
         
-        // Find active event
         const active = timelineEvents.find(event => 
-          Math.abs(event.year - currentYear) <= 2
+          Math.abs(event.year - calcYear) <= 2
         );
         if (active) setActiveEvent(active);
         
@@ -111,32 +117,38 @@ function TimelineVisualization({ showEavesdropper }) {
 
   const getEventColor = (type) => {
     switch(type) {
-      case 'classical': return '#4DABFF';
-      case 'quantum': return '#00E5FF';
-      case 'quantum-threat': return '#FF2E5C';
-      case 'transition': return '#FFA726';
-      default: return '#8B9CB0';
+      case 'classical': return 'var(--color-classical-primary, #d97706)';
+      case 'quantum': return 'var(--color-quantum-primary, #0284c7)';
+      case 'quantum-threat': return 'var(--color-error, #dc2626)';
+      case 'transition': return 'var(--color-warning, #d97706)';
+      default: return 'var(--color-text-secondary, #64748b)';
     }
   };
 
-  const getStatusIcon = (status) => {
+  const renderStatusBadge = (status) => {
     switch(status) {
-      case 'current': return '⚡';
-      case 'active': return '✅';
-      case 'emerging': return '🌱';
-      case 'imminent': return '⚠️';
-      case 'future': return '🔮';
-      default: return '📅';
+      case 'current':
+        return <Badge variant="quantum" size="sm" dot>CURRENT</Badge>;
+      case 'active':
+        return <Badge variant="success" size="sm">ACTIVE</Badge>;
+      case 'emerging':
+        return <Badge variant="classical" size="sm">EMERGING</Badge>;
+      case 'imminent':
+        return <Badge variant="warning" size="sm">IMMINENT</Badge>;
+      case 'future':
+        return <Badge variant="neutral" size="sm">PROJECTED</Badge>;
+      default:
+        return <Badge variant="neutral" size="sm">HISTORIC</Badge>;
     }
   };
 
   return (
     <div className="timeline-visualization">
       <div className="timeline-header">
-        <h3>Cryptographic Evolution Timeline</h3>
+        <h3>Cryptographic Security Epoch Timeline</h3>
         <div className="current-year">
-          <span className="year-label">Current Year:</span>
-          <span className="year-value">{currentYear}</span>
+          <span className="year-label">Evaluation Horizon:</span>
+          <span className="year-value font-mono">{currentYear}</span>
         </div>
       </div>
       
@@ -146,7 +158,7 @@ function TimelineVisualization({ showEavesdropper }) {
           <div 
             className="timeline-progress"
             style={{ width: `${timelineProgress}%` }}
-          ></div>
+          />
           
           {/* Timeline Events */}
           {timelineEvents.map(event => (
@@ -164,11 +176,10 @@ function TimelineVisualization({ showEavesdropper }) {
                 <div className="marker-dot"></div>
                 <div className="marker-line"></div>
               </div>
-              <div className="event-year">{event.year}</div>
+              <div className="event-year font-mono">{event.year}</div>
               <div className="event-content">
-                <div className="event-icon">{getStatusIcon(event.status)}</div>
                 <div className="event-title">{event.title}</div>
-                <div className="event-type" style={{ backgroundColor: getEventColor(event.type) }}>
+                <div className="event-type font-mono">
                   {event.type.replace('-', ' ').toUpperCase()}
                 </div>
               </div>
@@ -191,82 +202,79 @@ function TimelineVisualization({ showEavesdropper }) {
         {activeEvent ? (
           <>
             <div className="details-header">
-              <div className="event-year-large">{activeEvent.year}</div>
+              <div className="event-year-large font-mono">{activeEvent.year}</div>
               <div className="event-status">
-                <span className="status-icon">{getStatusIcon(activeEvent.status)}</span>
-                <span className="status-text">{activeEvent.status.toUpperCase()}</span>
+                {renderStatusBadge(activeEvent.status)}
               </div>
             </div>
             <div className="details-title">{activeEvent.title}</div>
             <div className="details-description">{activeEvent.description}</div>
             <div className="details-metrics">
               <div className="metric">
-                <span className="metric-label">Impact:</span>
+                <span className="metric-label">System Impact:</span>
                 <span className={`metric-value impact-${activeEvent.impact.toLowerCase()}`}>
                   {activeEvent.impact}
                 </span>
               </div>
               <div className="metric">
-                <span className="metric-label">Type:</span>
+                <span className="metric-label">Category:</span>
                 <span 
-                  className="metric-value type"
+                  className="metric-value type font-mono"
                   style={{ color: getEventColor(activeEvent.type) }}
                 >
                   {activeEvent.type.toUpperCase()}
                 </span>
               </div>
               <div className="metric">
-                <span className="metric-label">Years from now:</span>
-                <span className="metric-value">
-                  {activeEvent.year - 2024} years
+                <span className="metric-label">Temporal Delta:</span>
+                <span className="metric-value font-mono">
+                  {activeEvent.year >= 2024 ? `+${activeEvent.year - 2024} Years` : `${activeEvent.year - 2024} Years`}
                 </span>
               </div>
             </div>
           </>
         ) : (
           <div className="no-event-selected">
-            <div className="select-prompt">Hover over timeline events for details</div>
-            {/* <div className="select-icon">👆</div> */}
+            <div className="select-prompt">Hover over epoch nodes for cryptographic transition details</div>
           </div>
         )}
       </div>
       
       {/* Threat Timeline */}
       <div className="threat-timeline">
-        <h4>Quantum Threat Timeline:</h4>
+        <h4>Quantum Vulnerability Progression:</h4>
         <div className="threat-stages">
           <div className={`threat-stage ${currentYear >= 2022 ? 'active' : ''}`}>
-            <div className="stage-year">2022</div>
-            <div className="stage-title">Quantum Advantage</div>
-            <div className="stage-desc">Quantum supremacy demonstrated</div>
+            <div className="stage-year font-mono">2022</div>
+            <div className="stage-title">Noisy Intermediate Scale Quantum</div>
+            <div className="stage-desc">Supremacy demonstrations in synthetic benchmarks</div>
           </div>
           <div className={`threat-stage ${currentYear >= 2025 ? 'active' : ''}`}>
-            <div className="stage-year">2025</div>
-            <div className="stage-title">Store Now, Decrypt Later</div>
-            <div className="stage-desc">Data harvesting begins</div>
+            <div className="stage-year font-mono">2025</div>
+            <div className="stage-title">Harvest Now, Decrypt Later (HNDL)</div>
+            <div className="stage-desc">Adversaries intercept and archive encrypted classical traffic</div>
           </div>
           <div className={`threat-stage ${currentYear >= 2030 ? 'active' : ''}`}>
-            <div className="stage-year">2030</div>
-            <div className="stage-title">Cryptographically Relevant</div>
-            <div className="stage-desc">Current crypto broken</div>
+            <div className="stage-year font-mono">2030</div>
+            <div className="stage-title">Cryptographically Relevant Quantum Computer</div>
+            <div className="stage-desc">Shor's algorithm breaks discrete log and prime factorization</div>
           </div>
           <div className={`threat-stage ${currentYear >= 2035 ? 'active' : ''}`}>
-            <div className="stage-year">2035</div>
-            <div className="stage-title">Quantum Dominance</div>
-            <div className="stage-desc">Complete quantum transition</div>
+            <div className="stage-year font-mono">2035</div>
+            <div className="stage-title">Information-Theoretic Quantum Supremacy</div>
+            <div className="stage-desc">QKD and quantum-mesh networks become baseline standard</div>
           </div>
         </div>
         
         <div className="migration-recommendation">
-          {/* <div className="rec-icon">🚨</div> */}
           <div className="rec-content">
-            <div className="rec-title">Migration Urgency:</div>
+            <div className="rec-title">NIST Post-Quantum Migration Directive:</div>
             <div className="rec-text">
               {currentYear < 2025 
-                ? 'Begin planning post-quantum migration' 
+                ? 'Phase 1: Catalog asymmetric cryptographic inventory and deploy hybrid post-quantum cipher suites.' 
                 : currentYear < 2030
-                ? 'Actively migrating to quantum-resistant systems'
-                : 'CRITICAL: Complete migration immediately'}
+                ? 'Phase 2: Deprecate RSA and finite-field Diffie-Hellman in favor of QKD links and ML-KEM standards.'
+                : 'CRITICAL: Pure information-theoretic quantum key distribution required for top-secret boundaries.'}
             </div>
           </div>
         </div>
@@ -274,23 +282,23 @@ function TimelineVisualization({ showEavesdropper }) {
       
       {/* Legend */}
       <div className="timeline-legend">
-        <div className="legend-title">Event Types:</div>
+        <div className="legend-title">Protocol Classification:</div>
         <div className="legend-items">
           <div className="legend-item">
-            <div className="legend-color" style={{ backgroundColor: '#4DABFF' }}></div>
+            <div className="legend-color" style={{ backgroundColor: 'var(--color-classical-primary, #d97706)' }}></div>
             <span>Classical Cryptography</span>
           </div>
           <div className="legend-item">
-            <div className="legend-color" style={{ backgroundColor: '#00E5FF' }}></div>
-            <span>Quantum Cryptography</span>
+            <div className="legend-color" style={{ backgroundColor: 'var(--color-quantum-primary, #0284c7)' }}></div>
+            <span>Quantum Key Distribution</span>
           </div>
           <div className="legend-item">
-            <div className="legend-color" style={{ backgroundColor: '#FF2E5C' }}></div>
-            <span>Quantum Threats</span>
+            <div className="legend-color" style={{ backgroundColor: 'var(--color-error, #dc2626)' }}></div>
+            <span>Quantum Algorithmic Threat</span>
           </div>
           <div className="legend-item">
-            <div className="legend-color" style={{ backgroundColor: '#FFA726' }}></div>
-            <span>Transition Period</span>
+            <div className="legend-color" style={{ backgroundColor: 'var(--color-warning, #d97706)' }}></div>
+            <span>Transition / Hybrid Architecture</span>
           </div>
         </div>
       </div>

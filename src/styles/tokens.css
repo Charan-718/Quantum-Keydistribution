@@ -1,0 +1,681 @@
+/* ==========================================================================
+   DESIGN TOKENS & SYSTEM FOUNDATIONS
+   Quantum Key Distribution Laboratory
+   Luxury Emerald Teal, Dark Charcoal & Metallic Gold Design System
+   ========================================================================== */
+
+:root {
+  /* --------------------------------------------------------------------------
+     Typography System (Golden-Ratio Scale)
+     -------------------------------------------------------------------------- */
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+
+  /* Font Sizes */
+  --font-size-2xs: 0.6875rem; /* 11px */
+  --font-size-xs: 0.75rem;     /* 12px */
+  --font-size-sm: 0.84375rem;  /* 13.5px */
+  --font-size-base: 0.9375rem; /* 15px */
+  --font-size-md: 1.0625rem;   /* 17px */
+  --font-size-lg: 1.25rem;     /* 20px */
+  --font-size-xl: 1.5rem;      /* 24px */
+  --font-size-2xl: 1.875rem;   /* 30px */
+  --font-size-3xl: 2.375rem;   /* 38px */
+  --font-size-4xl: clamp(2.25rem, 3.8vw, 3.25rem); /* Hero Display */
+
+  /* Line Heights */
+  --line-height-tight: 1.2;
+  --line-height-snug: 1.35;
+  --line-height-normal: 1.55;
+  --line-height-relaxed: 1.7;
+
+  /* Letter Spacing */
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.04em;
+  --letter-spacing-wider: 0.08em;
+  --letter-spacing-caps: 0.12em;
+
+  /* Font Weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* --------------------------------------------------------------------------
+     Spacing Scale (8pt / 4pt grid)
+     -------------------------------------------------------------------------- */
+  --space-0-5: 0.125rem; /* 2px */
+  --space-1: 0.25rem;    /* 4px */
+  --space-1-5: 0.375rem; /* 6px */
+  --space-2: 0.5rem;     /* 8px */
+  --space-2-5: 0.625rem; /* 10px */
+  --space-3: 0.75rem;    /* 12px */
+  --space-3-5: 0.875rem; /* 14px */
+  --space-4: 1rem;       /* 16px */
+  --space-5: 1.25rem;    /* 20px */
+  --space-6: 1.5rem;     /* 24px */
+  --space-8: 2rem;       /* 32px */
+  --space-10: 2.5rem;    /* 40px */
+  --space-12: 3rem;      /* 48px */
+  --space-16: 4rem;      /* 64px */
+  --space-20: 5rem;      /* 80px */
+  --space-24: 6rem;      /* 96px */
+
+  /* --------------------------------------------------------------------------
+     Border Radius Scale
+     -------------------------------------------------------------------------- */
+  --radius-xs: 3px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* --------------------------------------------------------------------------
+     Motion Tokens
+     -------------------------------------------------------------------------- */
+  --duration-instant: 75ms;
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 380ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --ease-accelerate: cubic-bezier(0.3, 0, 1, 1);
+
+  /* --------------------------------------------------------------------------
+     Layout Primitives
+     -------------------------------------------------------------------------- */
+  --container-max-width: 1480px;
+  --header-height: 64px;
+
+  /* --------------------------------------------------------------------------
+     TRIANGULAR GOLDEN RATIO GEOMETRY SYSTEM (φ = 1.618034)
+     Derived from Sacred Triangular Proportions, Kepler Triangles & Sacred Lattice
+     -------------------------------------------------------------------------- */
+  --phi: 1.6180339887;
+  --phi-inv: 0.6180339887; /* Golden Section: 61.8% */
+  --phi-sub: 0.3819660113; /* Minor Section: 38.2% */
+
+  /* Golden Scale Spacing */
+  --space-phi-1: 10px;
+  --space-phi-2: 16px;
+  --space-phi-3: 26px; /* 16 * 1.618 */
+  --space-phi-4: 42px; /* 26 * 1.618 */
+  --space-phi-5: 68px; /* 42 * 1.618 */
+  --space-phi-6: 110px; /* 68 * 1.618 */
+
+  /* Triangular Chamfers and Angles */
+  --angle-triad: 60deg;
+  --angle-golden-vertex: 36deg;
+  --angle-golden-base: 72deg;
+  --chamfer-phi-sm: 14px;
+  --chamfer-phi-md: 22px;
+  --chamfer-phi-lg: 32px;
+
+  /* Dynamic Triangular Card Skewing & Facet Geometry */
+  --skew-card-angle: -2.2deg;
+  --skew-card-counter: 2.2deg;
+  --transform-skew-card: skewX(var(--skew-card-angle));
+  --transform-counter-skew: skewX(var(--skew-card-counter));
+
+  /* Triangular, Parallelogram & Kite (Kyte) Geometry Tokens */
+  --clip-kite-logo: polygon(50% 0%, 100% 38.2%, 50% 100%, 0% 38.2%);
+  --clip-kite-card: polygon(50% 0%, calc(100% - 24px) 18px, 100% 38.2%, calc(100% - 24px) 100%, 24px 100%, 0% 38.2%, 24px 18px);
+  --clip-kite-header: polygon(0 22px, calc(50% - 28px) 22px, 50% 0, calc(50% + 28px) 22px, 100% 22px, calc(100% - 20px) 100%, 20px 100%);
+  --clip-parallelogram-right: polygon(26px 0, 100% 0, calc(100% - 26px) 100%, 0 100%);
+  --clip-parallelogram-left: polygon(0 0, calc(100% - 26px) 0, 100% 100%, 26px 100%);
+  --clip-triangle-delta: polygon(50% 0%, 100% 100%, 0% 100%);
+  --clip-triangle-nabla: polygon(0 0, 100% 0, 50% 100%);
+  --clip-triangle-wedge-up: polygon(50% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 16px 100%, 0 calc(100% - 16px));
+  --clip-triangle-wedge-down: polygon(16px 0, calc(100% - 16px) 0, 100% 16px, 50% 100%, 0 16px);
+  --clip-tessellation-hex: polygon(20px 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 20px 100%, 0 calc(100% - 20px), 0 20px);
+
+  /* Polygonal Triangular Clip-Paths */
+  --clip-kepler-chamfer: polygon(
+    0 0,
+    calc(100% - 24px) 0,
+    100% 24px,
+    100% 100%,
+    24px 100%,
+    0 calc(100% - 24px)
+  );
+  --clip-delta-apex: polygon(
+    0 18px,
+    18px 0,
+    calc(61.8% - 24px) 0,
+    61.8% 12px,
+    calc(61.8% + 24px) 0,
+    calc(100% - 18px) 0,
+    100% 18px,
+    100% calc(100% - 18px),
+    calc(100% - 18px) 100%,
+    18px 100%,
+    0 calc(100% - 18px)
+  );
+  --clip-nabla-notch: polygon(
+    0 18px,
+    18px 0,
+    calc(100% - 18px) 0,
+    100% 18px,
+    100% calc(100% - 18px),
+    calc(38.2% + 24px) calc(100% - 18px),
+    38.2% 100%,
+    calc(38.2% - 24px) calc(100% - 18px),
+    18px calc(100% - 18px),
+    0 calc(100% - 18px)
+  );
+  --clip-triad-hex: polygon(
+    20px 0,
+    calc(100% - 20px) 0,
+    100% 20px,
+    100% calc(100% - 20px),
+    calc(100% - 20px) 100%,
+    20px 100%,
+    0 calc(100% - 20px),
+    0 20px
+  );
+  --clip-chevron-wing: polygon(
+    0 0,
+    calc(100% - 14px) 0,
+    100% 50%,
+    calc(100% - 14px) 100%,
+    0 100%,
+    14px 50%
+  );
+  --clip-corner-tr: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%);
+  --clip-corner-bl: polygon(0 0, 100% 0, 100% 100%, 28px 100%, 0 calc(100% - 28px));
+  --clip-star-diamond: polygon(50% 0%, 65% 35%, 100% 50%, 65% 65%, 50% 100%, 35% 65%, 0% 50%, 35% 35%);
+  --clip-rhombus: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+
+  /* Vertical Glass Grid Design Tokens */
+  --glass-fluted-grid: repeating-linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.08) 0px, 
+    rgba(255, 255, 255, 0.08) 1px, 
+    rgba(0, 42, 255, 0.03) 2px, 
+    transparent 2px, 
+    transparent 26px, 
+    rgba(56, 189, 248, 0.05) 27px, 
+    rgba(255, 255, 255, 0.06) 28px
+  );
+  --glass-column-grid: repeating-linear-gradient(90deg,
+    rgba(255, 255, 255, 0.04) 0px,
+    rgba(255, 255, 255, 0.04) 1px,
+    transparent 1px,
+    transparent 140px
+  );
+  --glass-card-surface-dark: rgba(255, 255, 255, 0.94);
+  --glass-card-surface-light: rgba(11, 21, 66, 0.92);
+  --glass-card-blur: blur(24px) saturate(180%);
+  --glass-specular-bevel: inset 0 1px 1px rgba(255, 255, 255, 0.45);
+
+  /* Smooth Dashboard Transitions */
+  --ease-golden: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-dashboard: transform 0.35s var(--ease-golden), box-shadow 0.35s var(--ease-golden), border-color 0.35s var(--ease-golden), background-color 0.35s var(--ease-golden);
+}
+
+/* ==========================================================================
+   TRIANGULAR & KYTE KINEMATIC ANIMATIONS
+   ========================================================================== */
+@keyframes kytePulseGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px rgba(0, 42, 255, 0.45));
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 24px rgba(0, 42, 255, 0.85)) drop-shadow(0 0 35px rgba(56, 189, 248, 0.6));
+    transform: scale(1.04);
+  }
+}
+
+@keyframes chevronFlow {
+  0% {
+    opacity: 0.25;
+    transform: translateY(-4px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0.25;
+    transform: translateY(4px);
+  }
+}
+
+@keyframes laserSweep {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes tessellationHover {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    transform: translateY(-3px) scale(1.005);
+  }
+}
+
+@keyframes cardFlipTiltEntrance {
+  0% {
+    opacity: 0.88;
+    transform: perspective(1400px) rotateX(7.5deg) rotateY(-4.5deg) translateZ(-25px);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1400px) rotateX(var(--card-flip-angle, 3.8deg)) rotateY(var(--sim-tilt-y, -2.4deg)) translateZ(8px);
+  }
+}
+
+/* ==========================================================================
+   COLOR SYSTEM: High-Fashion Metallic Silver & Intense Vibrant Cobalt Blue
+   RULE: 
+     - When background is Blue -> Use Silver / Platinum Cards!
+     - When background is Silver -> Use Deep Cobalt Blue Cards ("and vice versa")!
+   Zero green. Zero gold.
+   ========================================================================== */
+
+/* DARK THEME (Charcoal Black Canvas + Silver / Cobalt Accents - Inspired by Image 4 Theory) */
+:root,
+[data-theme="dark"] {
+  /* 60% DOMINANT FOUNDATION: Sophisticated Matte Charcoal Black Canvas */
+  --color-bg-canvas: #101114;
+  --color-bg-base: #16171b;
+  --color-bg-subtle: #1e1f25;
+
+  /* 30% SECONDARY / SURFACES: Matte Charcoal Glass & Polished Silver Borders */
+  --color-surface-default: #1a1b21;
+  --color-surface-elevated: #22232a;
+  --color-surface-interactive: #292a34;
+  --color-surface-hover: #31333f;
+  --color-surface-active: #3a3c4a;
+  --color-surface-inset: #0d0e11;
+
+  /* Borders & Dividers: Chrome Silver & Vibrant Cobalt Trims */
+  --color-border-subtle: rgba(255, 255, 255, 0.14);
+  --color-border-default: rgba(203, 213, 225, 0.32);
+  --color-border-strong: #002aff;
+  --color-border-focus: #002aff;
+
+  /* Typography Colors: Crisp Metallic Platinum Silver on Charcoal Surfaces */
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #cbd5e1;
+  --color-text-muted: #94a3b8;
+  --color-text-inverse: #0d0e11;
+  --color-text-canvas: #ffffff; /* Text rendered directly on charcoal canvas */
+  --color-text-gold: #38bdf8;
+
+  /* 10% ACCENT / ACTION DOMAINS: Vibrant Electric Cobalt Blue */
+  --color-quantum-primary: #002aff;
+  --color-quantum-hover: #001fd6;
+  --color-quantum-active: #0018a8;
+  --color-quantum-soft: rgba(0, 42, 255, 0.18);
+  --color-quantum-contrast: #002aff;
+  --color-quantum-glow: rgba(0, 42, 255, 0.55);
+
+  --color-classical-primary: #f8fafc;
+  --color-classical-hover: #ffffff;
+  --color-classical-active: #cbd5e1;
+  --color-classical-soft: rgba(255, 255, 255, 0.14);
+  --color-classical-contrast: #38bdf8;
+
+  /* Gradients */
+  --color-silver-gradient: linear-gradient(135deg, #ffffff 0%, #e2e8f0 40%, #cbd5e1 75%, #94a3b8 100%);
+  --color-silver-bar: linear-gradient(90deg, #22232a 0%, #1a1b21 50%, #101114 100%);
+  --color-gold-gradient: linear-gradient(135deg, #ffffff 0%, #e2e8f0 40%, #002aff 85%, #051336 100%);
+  --color-gold-text-glow: linear-gradient(135deg, #ffffff 0%, #e2e8f0 40%, #cbd5e1 100%);
+  --color-vibrant-blue-gradient: linear-gradient(135deg, #0038ff 0%, #002aff 40%, #001ce8 80%, #051336 100%);
+
+  /* Semantic State Colors - Himawari Yellow */
+  --color-success: #fcc800;
+  --color-success-soft: rgba(252, 200, 0, 0.16);
+  --color-success-border: rgba(252, 200, 0, 0.5);
+
+  --color-warning: #fcc800;
+  --color-warning-soft: rgba(252, 200, 0, 0.16);
+  --color-warning-border: rgba(252, 200, 0, 0.5);
+
+  --color-error: #ffd600;
+  --color-error-soft: rgba(255, 214, 0, 0.16);
+  --color-error-border: rgba(255, 214, 0, 0.5);
+
+  --color-info: #002aff;
+  --color-info-soft: rgba(0, 42, 255, 0.12);
+  --color-info-border: rgba(0, 42, 255, 0.4);
+
+  /* Shadows: Dimensional Silver Elevation on Blue Canvas */
+  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.15);
+  --shadow-sm: 0 4px 12px rgba(0, 10, 40, 0.35), 0 0 10px rgba(0, 42, 255, 0.12);
+  --shadow-md: 0 10px 30px rgba(0, 10, 40, 0.45), 0 0 20px rgba(0, 42, 255, 0.15);
+  --shadow-lg: 0 18px 45px rgba(0, 10, 40, 0.6), 0 0 30px rgba(0, 42, 255, 0.25);
+  --shadow-inset: inset 0 1px 4px rgba(0, 0, 0, 0.1);
+
+  --focus-ring: 0 0 0 2px var(--color-bg-canvas), 0 0 0 4px var(--color-border-focus);
+
+  /* --------------------------------------------------------------------------
+     PREMIUM PHYSICAL 3D KEYBOARD / KEYCAP DESIGN SYSTEM (Source: BB84 Reference)
+     Two-Level Physical Depth Architecture:
+     Level 1: Main Dashboard Panels (Chassis Enclosures with Thick Cobalt Frame)
+     Level 2: Internal Components & Controls (Mounted Individual Keycaps, Cards & Buttons)
+     -------------------------------------------------------------------------- */
+
+  /* Section 3: Exact BB84 Reference Color Palette */
+  --keycap-primary-frame: #063BFF;
+  --keycap-electric-blue: #174FFF;
+  --keycap-extrusion-deep: #071B79;
+  --keycap-shadow-navy: #071443;
+  --keycap-surface-white: #FFFFFF;
+  --keycap-surface-secondary: #F1F3F7;
+  --keycap-bevel-grey: #CBD2DE;
+  --keycap-typography-main: #101B35;
+  --keycap-typography-secondary: #52637D;
+
+  --keycap-radius: 9px;
+  --keycap-radius-sm: 6px;
+  --keycap-radius-lg: 12px;
+
+  /* Structural Base Frame (Royal & Cobalt Blue Chassis) */
+  --keycap-chassis-blue: #002aff;
+  --keycap-chassis-blue-deep: #001fc4;
+  --keycap-chassis-blue-dark: #001275;
+  --keycap-chassis-blue-shadow: rgba(0, 15, 60, 0.4);
+
+  /* LEVEL 1: Main Dashboard Panel Enclosures (Major Containers, Stage Columns, Large Panels) */
+  --panel-l1-radius: 12px;
+  --panel-l1-surface: linear-gradient(180deg, #FFFFFF 0%, #FAFBFC 40%, #F1F3F7 100%);
+  --panel-l1-border-top: 3px solid #FFFFFF;
+  --panel-l1-border-left: 2.5px solid #F8FAFC;
+  --panel-l1-border-right: 4.5px solid #CBD2DE;
+  --panel-l1-border-bottom: 12px solid #001fc4;
+  --panel-l1-box-shadow: 
+    0 0 0 6px #002aff,
+    0 8px 0 6px #001275,
+    inset 0 2.5px 2px rgba(255, 255, 255, 0.95),
+    inset 0 -3px 4px rgba(203, 210, 222, 0.5),
+    0 28px 56px -4px rgba(0, 15, 60, 0.42),
+    0 10px 22px -2px rgba(0, 15, 60, 0.25);
+
+  --panel-l1-hover-shadow: 
+    0 0 0 6px #002aff,
+    0 10px 0 6px #001275,
+    inset 0 3px 2px #FFFFFF,
+    0 32px 64px -4px rgba(0, 15, 60, 0.5),
+    0 12px 26px -2px rgba(0, 15, 60, 0.3);
+
+  --panel-l1-active-shadow: 
+    0 0 0 6px #002aff,
+    0 4px 0 6px #001275,
+    inset 0 2px 3px rgba(0, 15, 60, 0.2),
+    0 12px 24px rgba(0, 15, 60, 0.3);
+
+  /* LEVEL 2: Internal White Keycap (Information boxes, inner cards, normal buttons) */
+  --keycap-l2-radius: 9px;
+  --keycap-l2-radius-sm: 6px;
+  --keycap-l2-radius-lg: 12px;
+  --keycap-l2-white-surface: linear-gradient(180deg, #FFFFFF 0%, #FAFBFD 50%, #F1F3F7 100%);
+  --keycap-l2-white-border-top: 2px solid #FFFFFF;
+  --keycap-l2-white-border-left: 1.5px solid #F8FAFC;
+  --keycap-l2-white-border-right: 3px solid #CBD2DE;
+  --keycap-l2-white-border-bottom: 6px solid #94A3B8;
+  --keycap-l2-white-shadow: 
+    0 0 0 1.5px #CBD2DE,
+    0 3px 0 1.5px #94A3B8,
+    inset 0 2px 1px #FFFFFF,
+    inset 0 -2px 3px rgba(148, 163, 184, 0.35),
+    0 6px 16px rgba(0, 20, 60, 0.15);
+
+  /* LEVEL 2: Internal Electric Cobalt Keycap (Active selections, primary action keys) */
+  --keycap-l2-cobalt-surface: linear-gradient(180deg, #2563EB 0%, #002AFF 50%, #001FC4 100%);
+  --keycap-l2-cobalt-border-top: 2px solid rgba(255, 255, 255, 0.9);
+  --keycap-l2-cobalt-border-left: 1.5px solid rgba(147, 197, 253, 0.6);
+  --keycap-l2-cobalt-border-right: 3px solid #001AA3;
+  --keycap-l2-cobalt-border-bottom: 7px solid #001275;
+  --keycap-l2-cobalt-shadow: 
+    0 0 0 2px #001275,
+    0 4px 0 2px #000C47,
+    inset 0 2px 1.5px rgba(255, 255, 255, 0.75),
+    inset 0 -2px 4px rgba(0, 10, 60, 0.5),
+    0 8px 24px rgba(0, 42, 255, 0.45);
+
+  /* LEVEL 2: Standalone Keycap with Cobalt Structural Frame (Alice/Bob pedestals, Advantage cards) */
+  --keycap-l2-blueframe-surface: linear-gradient(180deg, #FFFFFF 0%, #FAFBFD 50%, #F1F3F7 100%);
+  --keycap-l2-blueframe-border-top: 2.5px solid #FFFFFF;
+  --keycap-l2-blueframe-border-left: 2px solid #F8FAFC;
+  --keycap-l2-blueframe-border-right: 3.5px solid #CBD2DE;
+  --keycap-l2-blueframe-border-bottom: 7px solid #001275;
+  --keycap-l2-blueframe-shadow: 
+    0 0 0 4px #002AFF,
+    0 5px 0 4px #001275,
+    inset 0 2px 1px #FFFFFF,
+    inset 0 -2px 3px rgba(203, 210, 222, 0.4),
+    0 12px 24px rgba(0, 15, 60, 0.22);
+
+  /* Standard Keycap Surface & Border Aliases */
+  --keycap-white-surface: linear-gradient(180deg, #FFFFFF 0%, #FAFBFD 45%, #F1F3F7 100%);
+  --keycap-white-border-top: 3px solid #FFFFFF;
+  --keycap-white-border-left: 2.5px solid #F8FAFC;
+  --keycap-white-border-right: 4.5px solid #CBD2DE;
+  --keycap-white-border-bottom: 11px solid #001FC4;
+  --keycap-white-bevel-shadow: 
+    0 0 0 6px #002AFF,
+    0 7px 0 6px #001275,
+    inset 0 2.5px 2px rgba(255, 255, 255, 0.95),
+    inset 2px 0 2px rgba(255, 255, 255, 0.8),
+    inset -2px 0 3px rgba(203, 210, 222, 0.25),
+    inset 0 -4px 5px rgba(0, 20, 80, 0.15),
+    0 24px 48px rgba(0, 15, 60, 0.35),
+    0 6px 14px rgba(0, 0, 0, 0.15);
+
+  /* Electric Cobalt Keycap */
+  --keycap-cobalt-surface: linear-gradient(180deg, #2563EB 0%, #002AFF 50%, #001FC4 100%);
+  --keycap-cobalt-border-top: 3px solid rgba(255, 255, 255, 0.9);
+  --keycap-cobalt-border-left: 2.5px solid rgba(147, 197, 253, 0.65);
+  --keycap-cobalt-border-right: 4.5px solid #001AA3;
+  --keycap-cobalt-border-bottom: 11px solid #001275;
+  --keycap-cobalt-bevel-shadow: 
+    0 0 0 6px #001FC4,
+    0 7px 0 6px #000C47,
+    inset 0 2.5px 2px rgba(255, 255, 255, 0.75),
+    inset 2px 0 1px rgba(255, 255, 255, 0.5),
+    inset -2px 0 3px rgba(0, 10, 60, 0.5),
+    inset 0 -4px 5px rgba(0, 10, 60, 0.6),
+    0 24px 48px rgba(0, 42, 255, 0.45),
+    0 6px 14px rgba(0, 10, 60, 0.3);
+
+  /* Midnight Navy / Cobalt Cohesive Keycap for Eve (Website Color Palette Compliant - No External Red) */
+  --keycap-alert-surface: linear-gradient(180deg, #FFFFFF 0%, #FAFBFC 40%, #F1F3F7 100%);
+  --keycap-alert-border-top: 3px solid #FFFFFF;
+  --keycap-alert-border-left: 2.5px solid #F8FAFC;
+  --keycap-alert-border-right: 4.5px solid #CBD2DE;
+  --keycap-alert-border-bottom: 11px solid #070D2B;
+  --keycap-alert-bevel-shadow: 
+    0 0 0 6px #0B1542,
+    0 7px 0 6px #070D2B,
+    inset 0 2.5px 2px rgba(255, 255, 255, 0.95),
+    inset 2px 0 2px rgba(255, 255, 255, 0.8),
+    inset -2px 0 3px rgba(203, 210, 222, 0.25),
+    inset 0 -4px 5px rgba(7, 13, 43, 0.2),
+    0 24px 48px rgba(7, 13, 43, 0.4),
+    0 6px 14px rgba(0, 0, 0, 0.18);
+
+  /* Hover State Tokens: Subtle Perceived Elevation & Enhanced Highlights/Ambient Shadow */
+  --keycap-hover-transform: translateY(-3px);
+  --keycap-hover-skirt: 12px;
+  --keycap-hover-shadow: 
+    0 0 0 5px #063BFF,
+    0 8px 0 5px #071B79,
+    inset 0 2.5px 2px #FFFFFF,
+    inset 2px 0 2px rgba(255, 255, 255, 0.95),
+    inset -2px 0 3px rgba(203, 210, 222, 0.3),
+    inset 0 -3px 4px rgba(7, 27, 121, 0.18),
+    0 24px 48px rgba(7, 20, 67, 0.42),
+    0 6px 14px rgba(0, 0, 0, 0.15);
+
+  /* Active / Pressed State Tokens: Physical Keycap Depressed into Base Frame */
+  --keycap-active-transform: translateY(4px);
+  --keycap-active-skirt: 4px;
+  --keycap-active-skirt-right: 2px;
+  --keycap-active-shadow: 
+    0 0 0 5px #063BFF,
+    0 2px 0 5px #071B79,
+    inset 0 2px 3px rgba(0, 0, 0, 0.15),
+    0 6px 14px rgba(7, 20, 67, 0.25),
+    0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* DARK THEME: Keycap and Enclosure Surface Overrides */
+[data-theme="dark"] {
+  --panel-l1-surface: linear-gradient(180deg, #141826 0%, #101422 40%, #0c101c 100%);
+  --panel-l1-border-top: 2.5px solid rgba(255, 255, 255, 0.2);
+  --panel-l1-border-left: 2px solid rgba(255, 255, 255, 0.1);
+  --panel-l1-border-right: 3px solid rgba(0, 42, 255, 0.45);
+  --panel-l1-border-bottom: 9px solid #001275;
+  --panel-l1-box-shadow: 
+    0 0 0 3px #002aff,
+    0 6px 0 3px #001275,
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.15),
+    0 24px 48px rgba(0, 0, 0, 0.6);
+
+  --panel-l1-hover-shadow: 
+    0 0 0 3px #002aff,
+    0 8px 0 3px #001275,
+    inset 0 2px 1.5px rgba(255, 255, 255, 0.25),
+    0 28px 56px rgba(0, 0, 0, 0.7);
+
+  --keycap-white-surface: linear-gradient(180deg, #181d2a 0%, #131722 50%, #0e121c 100%);
+  --keycap-white-border-top: 2px solid rgba(255, 255, 255, 0.2);
+  --keycap-white-border-left: 1.5px solid rgba(255, 255, 255, 0.1);
+  --keycap-white-border-right: 3px solid rgba(0, 42, 255, 0.45);
+  --keycap-white-border-bottom: 7px solid #001275;
+
+  --keycap-l2-white-surface: linear-gradient(180deg, #181d2a 0%, #131722 50%, #0e121c 100%);
+  --keycap-l2-white-border-top: 1.5px solid rgba(255, 255, 255, 0.2);
+  --keycap-l2-white-border-left: 1.5px solid rgba(255, 255, 255, 0.1);
+  --keycap-l2-white-border-right: 2.5px solid rgba(0, 42, 255, 0.45);
+  --keycap-l2-white-border-bottom: 5px solid #001275;
+  --keycap-l2-white-shadow: 
+    0 0 0 1.5px #002aff,
+    0 3px 0 1.5px #001275,
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.15),
+    0 6px 16px rgba(0, 0, 0, 0.4);
+
+  --keycap-l2-blueframe-surface: linear-gradient(180deg, #181d2a 0%, #131722 50%, #0e121c 100%);
+  --keycap-l2-blueframe-border-top: 2px solid rgba(255, 255, 255, 0.25);
+  --keycap-l2-blueframe-border-left: 1.5px solid rgba(255, 255, 255, 0.12);
+  --keycap-l2-blueframe-border-right: 3px solid rgba(0, 42, 255, 0.55);
+  --keycap-l2-blueframe-border-bottom: 6px solid #001275;
+  --keycap-l2-blueframe-shadow: 
+    0 0 0 2.5px #002aff,
+    0 4px 0 2.5px #001275,
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.2),
+    0 8px 20px rgba(0, 0, 0, 0.45);
+}
+
+/* LIGHT THEME (Engineering Blueprint Silver Canvas + Authentic Porcelain Mechanical Keycaps) */
+[data-theme="light"] {
+  /* 60% DOMINANT FOUNDATION: Metallic Silver / Platinum Canvas */
+  --color-bg-canvas: #e6ebf2;
+  --color-bg-base: #edf2f8;
+  --color-bg-subtle: #dbe2ec;
+
+  /* 30% SECONDARY / SURFACES: Crisp Porcelain White Key Surfaces & Light Insets */
+  --color-surface-default: #ffffff;
+  --color-surface-elevated: #f8fafc;
+  --color-surface-interactive: #f1f5f9;
+  --color-surface-hover: #e2e8f0;
+  --color-surface-active: #cbd5e1;
+  --color-surface-inset: #f1f5f9;
+
+  /* Borders & Dividers: Clean Slate and Cobalt Chamfers */
+  --color-border-subtle: #cbd5e1;
+  --color-border-default: #94a3b8;
+  --color-border-strong: #002aff;
+  --color-border-focus: #002aff;
+
+  /* Typography Colors: Dark Obsidian Slate on Porcelain Keycaps */
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #334155;
+  --color-text-muted: #64748b;
+  --color-text-inverse: #ffffff;
+  --color-text-canvas: #0f172a; /* Text rendered directly on silver canvas */
+  --color-text-gold: #002aff;
+
+  /* 10% ACCENT / ACTION DOMAINS: Electric Cobalt Blue */
+  --color-quantum-primary: #002aff;
+  --color-quantum-hover: #001fd6;
+  --color-quantum-active: #0018a8;
+  --color-quantum-soft: rgba(0, 42, 255, 0.12);
+  --color-quantum-contrast: #002aff;
+  --color-quantum-glow: rgba(0, 42, 255, 0.4);
+
+  --color-classical-primary: #0f172a;
+  --color-classical-hover: #1e293b;
+  --color-classical-active: #334155;
+  --color-classical-soft: rgba(0, 42, 255, 0.08);
+  --color-classical-contrast: #002aff;
+
+  --color-silver-gradient: linear-gradient(135deg, #ffffff 0%, #e2e8f0 35%, #cbd5e1 75%, #94a3b8 100%);
+  --color-silver-bar: linear-gradient(90deg, #16297a 0%, #101e5c 50%, #0b1542 100%);
+  --color-gold-gradient: linear-gradient(135deg, #ffffff 0%, #e2e8f0 35%, #cbd5e1 75%, #94a3b8 100%);
+  --color-gold-text-glow: linear-gradient(135deg, #ffffff 0%, #f1f5f9 40%, #cbd5e1 100%);
+  --color-vibrant-blue-gradient: linear-gradient(135deg, #0038ff 0%, #002aff 40%, #001ce8 80%, #051336 100%);
+
+  /* Semantic State Colors - Himawari Yellow */
+  --color-success: #fcc800;
+  --color-success-soft: rgba(252, 200, 0, 0.22);
+  --color-success-border: rgba(252, 200, 0, 0.6);
+
+  --color-warning: #fcc800;
+  --color-warning-soft: rgba(252, 200, 0, 0.18);
+  --color-warning-border: rgba(252, 200, 0, 0.45);
+
+  --color-error: #ffd600;
+  --color-error-soft: rgba(255, 214, 0, 0.18);
+  --color-error-border: rgba(255, 214, 0, 0.45);
+
+  --color-info: #38bdf8;
+  --color-info-soft: rgba(56, 189, 248, 0.22);
+  --color-info-border: rgba(56, 189, 248, 0.45);
+
+  /* Shadows: Electric Glow & Silver Depth on Silver Canvas */
+  --shadow-xs: 0 1px 3px rgba(0, 42, 255, 0.08);
+  --shadow-sm: 0 4px 14px rgba(0, 42, 255, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 10px 30px rgba(0, 42, 255, 0.18), 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 18px 45px rgba(0, 42, 255, 0.25), 0 4px 14px rgba(0, 0, 0, 0.1);
+  --shadow-inset: inset 0 1px 4px rgba(0, 0, 0, 0.15);
+
+  --focus-ring: 0 0 0 2px var(--color-bg-canvas), 0 0 0 4px var(--color-border-focus);
+}
+
+/* Backward compatibility aliases for existing components */
+:root {
+  --primary-bg: var(--color-bg-canvas);
+  --secondary-bg: var(--color-bg-base);
+  --tertiary-bg: var(--color-surface-elevated);
+  --card-bg: var(--color-surface-default);
+  --card-bg-elevated: var(--color-surface-elevated);
+  --border-color: var(--color-border-default);
+  --text-primary: var(--color-text-primary);
+  --text-secondary: var(--color-text-secondary);
+  --text-muted: var(--color-text-muted);
+  --gold-light: var(--color-classical-contrast);
+  --gold-primary: var(--color-classical-primary);
+  --gold-gradient: var(--color-gold-gradient);
+  --quantum-cyan: var(--color-quantum-contrast);
+  --quantum-cyan-light: var(--color-quantum-soft);
+  --secure-emerald: var(--color-success);
+  --secure-emerald-light: var(--color-success-soft);
+  --classical-blue: var(--color-classical-primary);
+  --classical-blue-light: var(--color-classical-soft);
+  --alert-crimson: var(--color-error);
+  --alert-crimson-light: var(--color-error-soft);
+  --warning-amber: var(--color-warning);
+  --warning-amber-light: var(--color-warning-soft);
+}

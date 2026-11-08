@@ -1,123 +1,130 @@
 // File: src/components/comparison/StatsDashboard.jsx
 import React from 'react';
 import { calculateBruteForceTime, isKeyVulnerable } from '../../utils/cryptography';
-import '../../styles/shared.css';
-
-import './StatsDashboard.css'; // In StatsDashboard.jsx
+import { AlertTriangleIcon, CheckCircleIcon } from '../ui/Icons';
+import './StatsDashboard.css';
 
 function StatsDashboard({ showEavesdropper, keySize }) {
   const bruteForceTime = calculateBruteForceTime(keySize);
   const isVulnerable = isKeyVulnerable(keySize, showEavesdropper);
-  
+
   const stats = [
     {
-      title: 'Key Exchange Speed',
-      classical: '~50ms',
-      quantum: '~200ms',
+      title: 'Exchange Latency',
+      classical: '~45 ms',
+      quantum: '~180 ms',
       advantage: 'classical',
-      description: 'Classical is faster due to optimized hardware'
+      description: 'Classical is faster on conventional hardware, but lacks physical tamper detection'
     },
     {
       title: 'Eavesdropper Detection',
-      classical: 'Indirect/Mathematical',
-      quantum: 'Direct/Physical',
+      classical: 'None (Passive Snooping Possible)',
+      quantum: 'Immediate (Wavefunction Collapse)',
       advantage: 'quantum',
-      description: 'Quantum detects ANY interception immediately'
+      description: 'Quantum physical laws detect any observation attempt as a surge in QBER'
     },
     {
       title: 'Security Foundation',
-      classical: 'Computational Complexity',
-      quantum: 'Quantum Physics Laws',
+      classical: 'Computational Hardness (P vs NP)',
+      quantum: 'Quantum Mechanics (Heisenberg)',
       advantage: 'quantum',
-      description: "Math can be broken, physics can't be violated"
+      description: 'Mathematics can be solved by future algorithms; physics cannot be bypassed'
     },
     {
       title: 'Quantum Computer Resistance',
-      classical: 'VULNERABLE',
-      quantum: 'SECURE',
+      classical: 'Vulnerable (Shor\'s Factorization)',
+      quantum: 'Unconditionally Immune',
       advantage: 'quantum',
-      description: 'Classical crypto broken by Shor\'s algorithm'
+      description: 'RSA and discrete log algorithms break under polynomial-time Shor period-finding'
     },
     {
-      title: 'Key Size Required',
-      classical: `${keySize} bits`,
-      quantum: 'N/A (Continuous)',
+      title: 'Key Entropy Nature',
+      classical: 'Pseudo-Random (PRNG Algorithm)',
+      quantum: 'True Quantum Random (Shot Noise)',
       advantage: 'quantum',
-      description: 'Quantum uses photon properties, not bit length'
+      description: 'Quantum entropy originates in non-deterministic quantum measurement events'
     },
     {
-      title: 'Forward Secrecy',
-      classical: 'Protocol Dependent',
-      quantum: 'INHERENT',
+      title: 'Forward Secrecy Guarantee',
+      classical: 'Protocol Implementation Dependent',
+      quantum: 'Inherent to Photon Transmission',
       advantage: 'quantum',
-      description: 'Each quantum key is unique and ephemeral'
+      description: 'Compromise of historical ciphertext provides zero leverage over future quantum keys'
     }
   ];
 
   return (
-    <div className="stats-dashboard">
-      <h3>Security Metrics Dashboard</h3>
-      
-      <div className="security-alert" style={{ 
-        backgroundColor: isVulnerable ? 'rgba(255, 46, 92, 0.1)' : 'rgba(0, 255, 157, 0.1)',
-        borderColor: isVulnerable ? '#FF2E5C' : '#00FF9D'
-      }}>
-        <div className="alert-icon">{isVulnerable ? '⚠️' : '✅'}</div>
-        <div className="alert-content">
-          <h4>{isVulnerable ? 'SECURITY WARNING' : 'SECURE CONNECTION'}</h4>
-          <p>
-            {isVulnerable 
-              ? `${keySize}-bit key is vulnerable to quantum attacks. Upgrade to post-quantum or quantum key distribution.`
-              : `Current configuration provides strong security against classical attacks.`}
+    <section className="stats-dashboard-panel" aria-label="Security Metrics and Benchmarks">
+      <div className="dashboard-header">
+        <h3 className="dashboard-title">Security Architecture Benchmarks</h3>
+        <span className="dashboard-tag">NIST / Post-Quantum Cryptography Comparative Audit</span>
+      </div>
+
+      {/* Advisory Banner */}
+      <div className={`security-advisory-banner ${isVulnerable ? 'is-vulnerable' : 'is-secure'}`}>
+        <div className="advisory-icon" aria-hidden="true">
+          {isVulnerable ? <AlertTriangleIcon size={20} /> : <CheckCircleIcon size={20} />}
+        </div>
+        <div className="advisory-content">
+          <h4 className="advisory-title">
+            {isVulnerable ? 'SECURITY ADVISORY: CLASSICAL QUANTUM VULNERABILITY' : 'NOMINAL CONFIGURATION'}
+          </h4>
+          <p className="advisory-text">
+            {isVulnerable
+              ? `${keySize}-bit asymmetric keys are vulnerable to quantum Shor algorithm factorization. Transition to BB84 QKD or post-quantum lattice schemes is recommended for long-term secrets.`
+              : `Current parameters provide standard resistance against classical mathematical factoring.`}
           </p>
-          {showEavesdropper && (
-            <p className="eavesdropper-warning">
-              Eavesdropper simulation active - Real-time attack detection in progress
-            </p>
-          )}
         </div>
       </div>
-      
-      <div className="brute-force-estimate">
-        <h4>Brute Force Attack Time Estimate:</h4>
-        <div className="time-display" style={{ color: bruteForceTime.color }}>
-          {bruteForceTime.years > 1e30 
-            ? `> 10³⁰ years (Practically Impossible)`
-            : `~${bruteForceTime.years.toExponential(2)} years`}
+
+      {/* Brute Force Attack Benchmark Box */}
+      <div className="benchmark-computation-box">
+        <div className="comp-header">
+          <span className="comp-title">Estimated Brute-Force Factorization Effort:</span>
+          <span className="comp-score">
+            {bruteForceTime.years > 1e30
+              ? '> 10³⁰ CPU-Years (Practically Infinite Classically)'
+              : `~${bruteForceTime.years.toExponential(2)} Years`}
+          </span>
         </div>
-        <div className="time-context">
-          {bruteForceTime.years > 1e30 
-            ? 'Time exceeds age of universe by many orders of magnitude'
-            : 'Attack feasible with nation-state resources'}
+        <div className="comp-subtext">
+          {bruteForceTime.years > 1e30
+            ? 'Classical break effort exceeds cosmological age of the universe; however Shor\'s quantum algorithm requires only O((log N)³) steps.'
+            : 'Deprecation advisory: Computational feasibility falls within nation-state supercomputing clusters.'}
         </div>
       </div>
-      
-      <div className="stats-grid">
-        {stats.map((stat, index) => (
-          <div key={index} className={`stat-card ${stat.advantage}`}>
-            <div className="stat-header">
-              <h5>{stat.title}</h5>
-              <span className={`advantage-tag ${stat.advantage}`}>
-                {stat.advantage === 'quantum' ? 'QUANTUM ADVANTAGE' : 'CLASSICAL ADVANTAGE'}
+
+      {/* Metrics Grid */}
+      <div className="benchmark-cards-grid">
+        {stats.map((stat, idx) => (
+          <div key={idx} className={`benchmark-card adv-${stat.advantage} ${idx % 2 === 0 ? 'facet-delta' : 'facet-nabla'}`}>
+            <div className="card-top-row">
+              <div className="card-apex-badge" aria-hidden="true">
+                <span className="apex-triangle">{idx % 2 === 0 ? '▲' : '▼'}</span>
+                <span className="apex-num">0{idx + 1}</span>
+              </div>
+              <h5 className="benchmark-card-title">{stat.title}</h5>
+              <span className={`benchmark-advantage-pill ${stat.advantage}`}>
+                {stat.advantage === 'quantum' ? 'Quantum Advantage' : 'Classical Advantage'}
               </span>
             </div>
-            <div className="stat-values">
-              <div className="value classical">
-                <span className="value-label">Classical:</span>
-                <span className="value-data">{stat.classical}</span>
+
+            <div className="benchmark-values-row">
+              <div className="val-block classical">
+                <span className="val-label">Classical:</span>
+                <span className="val-data">{stat.classical}</span>
               </div>
-              <div className="value quantum">
-                <span className="value-label">Quantum:</span>
-                <span className="value-data">{stat.quantum}</span>
+              <div className="val-block quantum">
+                <span className="val-label">Quantum:</span>
+                <span className="val-data">{stat.quantum}</span>
               </div>
             </div>
-            <div className="stat-description">
-              {stat.description}
-            </div>
+
+            <p className="benchmark-desc">{stat.description}</p>
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }
 

@@ -1,6 +1,8 @@
 // File: src/components/shared/KeyGenerator.jsx
-import React, { useState, useEffect } from 'react';
-// import '../../styles/shared.css';
+import React, { useState } from 'react';
+import Button from '../ui/Button';
+import Badge from '../ui/Badge';
+import { KeyIcon, RotateCcwIcon, CopyIcon, CheckIcon } from '../ui/Icons';
 import './KeyGenerator.css';
 
 function KeyGenerator({ type, keySize, onKeyGenerated }) {
@@ -8,6 +10,7 @@ function KeyGenerator({ type, keySize, onKeyGenerated }) {
   const [generationProgress, setGenerationProgress] = useState(0);
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedKey, setGeneratedKey] = useState('');
+  const [copied, setCopied] = useState(false);
 
   const generateKey = () => {
     setIsGenerating(true);
@@ -24,7 +27,7 @@ function KeyGenerator({ type, keySize, onKeyGenerated }) {
         setIsGenerating(false);
         
         // Create final key representation
-        const keyHex = bits.map(bit => bit.toString(16)).join('');
+        const keyHex = bits.map(bit => (typeof bit === 'object' ? bit.bit : bit).toString(16)).join('');
         setGeneratedKey(keyHex);
         
         if (onKeyGenerated) {
@@ -40,7 +43,6 @@ function KeyGenerator({ type, keySize, onKeyGenerated }) {
       
       // Generate bit
       const bit = Math.random() > 0.5 ? 1 : 0;
-      bits.push(bit);
       
       // For quantum, simulate basis and polarization
       if (type === 'quantum') {
@@ -49,18 +51,20 @@ function KeyGenerator({ type, keySize, onKeyGenerated }) {
           ? (bit === 1 ? 'vertical' : 'horizontal')
           : (bit === 1 ? '45deg' : '135deg');
         
-        bits[bits.length - 1] = {
+        bits.push({
           bit,
           basis,
           polarization,
           id: Date.now() + Math.random()
-        };
+        });
+      } else {
+        bits.push(bit);
       }
       
       setKeyBits([...bits]);
-      setGenerationProgress((progress + 1) / totalBits * 100);
+      setGenerationProgress(Math.round(((progress + 1) / totalBits) * 100));
       progress++;
-    }, type === 'quantum' ? 50 : 10);
+    }, type === 'quantum' ? 35 : 8);
   };
 
   const resetKey = () => {
@@ -68,121 +72,128 @@ function KeyGenerator({ type, keySize, onKeyGenerated }) {
     setGeneratedKey('');
     setGenerationProgress(0);
     setIsGenerating(false);
+    setCopied(false);
+  };
+
+  const handleCopy = () => {
+    if (!generatedKey) return;
+    navigator.clipboard.writeText(generatedKey);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const getPolarizationGlyph = (pol) => {
+    switch (pol) {
+      case 'vertical': return '|';
+      case 'horizontal': return '—';
+      case '45deg': return '/';
+      case '135deg': return '\\';
+      default: return '|';
+    }
   };
 
   return (
     <div className={`key-generator ${type}`}>
       <div className="generator-header">
-        <h3>
-          {type === 'quantum' ? 'Quantum Key Generation' : 'Classical Key Generation'}
-        </h3>
-        <div className="key-size-badge">
-          {type === 'quantum' ? '256 photons' : `${keySize} bits`}
+        <div className="generator-title-row">
+          <KeyIcon size={18} color="var(--color-quantum-primary)" />
+          <h3>
+            {type === 'quantum' ? 'Quantum Key Generation Engine' : 'Classical Pseudorandom Key Generator'}
+          </h3>
         </div>
+        <Badge variant={type === 'quantum' ? 'quantum' : 'classical'}>
+          {type === 'quantum' ? '256 Photons (BB84)' : `${keySize} Bits (FIPS 140-3)`}
+        </Badge>
       </div>
       
       <div className="generation-progress">
-        <div className="progress-bar">
+        <div className="progress-bar-track">
           <div 
-            className="progress-fill"
+            className="progress-bar-fill"
             style={{ 
               width: `${generationProgress}%`,
-              backgroundColor: type === 'quantum' ? '#00E5FF' : '#4DABFF'
+              backgroundColor: type === 'quantum' ? 'var(--color-quantum-primary)' : 'var(--color-classical-primary)'
             }}
-          ></div>
+          />
         </div>
-        <div className="progress-text">
-          {isGenerating ? 'Generating...' : generationProgress === 100 ? 'Complete' : 'Ready'}
-          <span className="progress-percent">{generationProgress.toFixed(0)}%</span>
+        <div className="progress-text-row">
+          <span className="progress-status">
+            {isGenerating ? 'Synthesizing Entropy Pool...' : generationProgress === 100 ? 'Synthesis Complete' : 'Standing By'}
+          </span>
+          <span className="progress-percent font-mono">{generationProgress}%</span>
         </div>
       </div>
       
       <div className="bit-visualization">
         <div className="bit-grid">
-          {keyBits.slice(0, 64).map((bit, index) => (
-            <div 
-              key={index}
-              className={`bit-cell ${type} ${
-                type === 'quantum' 
-                  ? (bit.basis === 'rectilinear' ? 'rect' : 'diag')
-                  : (bit === 1 ? 'one' : 'zero')
-              }`}
-              title={type === 'quantum' 
-                ? `Bit: ${bit.bit}, Basis: ${bit.basis}, Pol: ${bit.polarization}`
-                : `Bit: ${bit}`
-              }
-            >
-              {type === 'quantum' ? (
-                <div className={`photon ${bit.polarization}`}>
-                  {bit.bit === 1 ? '↕️' : '↔️'}
-                </div>
-              ) : (
-                <span>{bit}</span>
-              )}
-            </div>
-          ))}
+          {keyBits.slice(0, 64).map((bitObj, index) => {
+            const isQ = type === 'quantum';
+            const bitVal = isQ ? bitObj.bit : bitObj;
+            return (
+              <div 
+                key={index}
+                className={`bit-cell ${type} ${
+                  isQ 
+                    ? (bitObj.basis === 'rectilinear' ? 'rect' : 'diag')
+                    : (bitVal === 1 ? 'one' : 'zero')
+                }`}
+                title={isQ 
+                  ? `Bit: ${bitObj.bit}, Basis: ${bitObj.basis}, Polarization: ${bitObj.polarization}`
+                  : `Bit: ${bitVal}`
+                }
+              >
+                {isQ ? (
+                  <span className="photon-glyph font-mono">{getPolarizationGlyph(bitObj.polarization)}</span>
+                ) : (
+                  <span className="font-mono">{bitVal}</span>
+                )}
+              </div>
+            );
+          })}
         </div>
         {keyBits.length > 64 && (
-          <div className="bit-count">
-            ... and {keyBits.length - 64} more bits
+          <div className="bit-count font-mono">
+            + {keyBits.length - 64} additional key bits in register
           </div>
         )}
       </div>
       
       {generatedKey && (
         <div className="generated-key-display">
-          <h4>Generated Key:</h4>
+          <div className="key-header-row">
+            <h4>Output Material (Hexadecimal Digest):</h4>
+            <Button size="sm" variant="ghost" onClick={handleCopy} leftIcon={copied ? <CheckIcon size={14} /> : <CopyIcon size={14} />}>
+              {copied ? 'Copied' : 'Copy'}
+            </Button>
+          </div>
           <div className="key-hex">
-            <code>{generatedKey.substring(0, 64)}...</code>
+            <code className="font-mono">{generatedKey.substring(0, 64)}...</code>
           </div>
           <div className="key-metrics">
-            <span className="metric">Entropy: {type === 'quantum' ? 'True Random' : 'Pseudo Random'}</span>
-            <span className="metric">Length: {keyBits.length} {type === 'quantum' ? 'photons' : 'bits'}</span>
-            <span className="metric">Security: {type === 'quantum' ? 'Information-Theoretic' : 'Computational'}</span>
+            <span className="metric">Entropy Source: <strong>{type === 'quantum' ? 'True Quantum Vacuum Fluctuations' : 'CSPRNG Hash Algorithm'}</strong></span>
+            <span className="metric">Key Length: <strong>{keyBits.length} {type === 'quantum' ? 'qubits' : 'bits'}</strong></span>
+            <span className="metric">Security Model: <strong>{type === 'quantum' ? 'Information-Theoretic' : 'Computational Hardness'}</strong></span>
           </div>
         </div>
       )}
       
       <div className="generator-controls">
-        <button 
-          className={`generate-btn ${type}`}
+        <Button 
+          variant={type === 'quantum' ? 'quantum' : 'classical'}
           onClick={generateKey}
           disabled={isGenerating}
+          loading={isGenerating}
         >
-          {isGenerating ? 'Generating...' : `Generate ${type === 'quantum' ? 'Quantum' : 'Classical'} Key`}
-        </button>
-        <button 
-          className="reset-btn"
+          {isGenerating ? 'Generating Material...' : `Generate ${type === 'quantum' ? 'Quantum' : 'Classical'} Key`}
+        </Button>
+        <Button 
+          variant="secondary"
           onClick={resetKey}
+          disabled={isGenerating}
+          leftIcon={<RotateCcwIcon size={14} />}
         >
-          Reset
-        </button>
-        {generatedKey && (
-          <button className="copy-btn">
-            Copy Key
-          </button>
-        )}
-      </div>
-      
-      <div className="generator-info">
-        <h4>Key Generation Information:</h4>
-        <ul>
-          {type === 'quantum' ? (
-            <>
-              <li>Uses quantum randomness from photon polarization</li>
-              <li>Any measurement attempt disturbs quantum states</li>
-              <li>Provides information-theoretic security</li>
-              <li>Real photons transmitted over quantum channel</li>
-            </>
-          ) : (
-            <>
-              <li>Uses mathematical algorithms (PRNG)</li>
-              <li>Fast generation using computer algorithms</li>
-              <li>Security based on computational hardness</li>
-              <li>Can be stored and reused</li>
-            </>
-          )}
-        </ul>
+          Reset Buffer
+        </Button>
       </div>
     </div>
   );

@@ -1,0 +1,489 @@
+/* File: src/components/comparison/SideBySideComparison.css */
+
+.comparison-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-phi-4, 42px);
+  width: 100%;
+  max-width: 100%;
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+/* MARQUEE BANNER: Level 1 Main Dashboard Panel (Reference Image 1) */
+.comparison-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  background: var(--panel-l1-surface);
+  border-top: var(--panel-l1-border-top) !important;
+  border-left: var(--panel-l1-border-left) !important;
+  border-right: var(--panel-l1-border-right) !important;
+  border-bottom: var(--panel-l1-border-bottom) !important;
+  border-radius: var(--panel-l1-radius, 24px);
+  clip-path: none !important;
+  padding: 24px 36px;
+  box-shadow: var(--panel-l1-box-shadow) !important;
+  flex-wrap: wrap;
+  position: relative;
+  transform: none; /* Straight and normal */
+  cursor: default;
+}
+
+.comparison-header-bar > * {
+  transform: none;
+}
+
+[data-theme="dark"] .comparison-header-bar {
+  background: linear-gradient(180deg, #131826 0%, #0d121e 60%, #080c16 100%) !important;
+  border-top: 2.5px solid rgba(255, 255, 255, 0.35) !important;
+  border-left: 2px solid rgba(255, 255, 255, 0.15) !important;
+  border-right: 4px solid #001aa3 !important;
+  border-bottom: 12px solid #001275 !important;
+  border-radius: 12px !important;
+  box-shadow: 
+    0 0 0 4px #002aff,
+    0 8px 0 4px #001275,
+    inset 0 2px 1px rgba(255, 255, 255, 0.25),
+    0 24px 50px -4px rgba(0, 0, 0, 0.85),
+    0 10px 20px -2px rgba(0, 0, 0, 0.6) !important;
+}
+
+[data-theme="dark"] .comparison-title {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .comparison-subtitle {
+  color: #cbd5e1 !important;
+}
+
+.header-text-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.header-badge-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2-5);
+}
+
+.phi-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-quantum-contrast);
+  background: var(--color-quantum-soft);
+  padding: 1px 7px;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+}
+
+.comparison-title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.comparison-subtitle {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  margin: 0;
+  max-width: 820px;
+}
+
+/* ==========================================================================
+   COMPARISON GRID & STACK ARCHITECTURE
+   ========================================================================== */
+
+/* 1. STACKED FLOW (Default: Zero Overflow, 100% Width for both engines) */
+.comparison-grid.is-stacked {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-phi-5, 68px);
+  width: 100%;
+}
+
+/* 2. SPLIT DUAL-COLUMN VIEW (Straight Mechanical Keypad Architecture) */
+.comparison-grid.is-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-phi-4, 36px);
+  align-items: stretch;
+  width: 100%;
+}
+
+/* ISOLATED CLASSICAL ENGINE CONTAINER: Level 1 Main Dashboard Panel (Reference Image 2) */
+.comparison-column.classical-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  position: relative;
+  background: var(--panel-l1-surface);
+  border-radius: var(--panel-l1-radius, 24px);
+  border-top: var(--panel-l1-border-top) !important;
+  border-left: var(--panel-l1-border-left) !important;
+  border-right: var(--panel-l1-border-right) !important;
+  border-bottom: var(--panel-l1-border-bottom) !important;
+  clip-path: none !important;
+  padding: var(--space-phi-4, 38px);
+  box-shadow: var(--panel-l1-box-shadow) !important;
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  transform: none; /* Straight and normal, not tilted */
+  cursor: default;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.comparison-column.classical-column > * {
+  transform: none;
+}
+
+/* ISOLATED QUANTUM ENGINE CONTAINER: Level 1 Main Dashboard Panel (Reference Image 2) */
+.comparison-column.quantum-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  position: relative;
+  background: var(--panel-l1-surface);
+  border-radius: var(--panel-l1-radius, 24px);
+  border-top: var(--panel-l1-border-top) !important;
+  border-left: var(--panel-l1-border-left) !important;
+  border-right: var(--panel-l1-border-right) !important;
+  border-bottom: var(--panel-l1-border-bottom) !important;
+  clip-path: none !important;
+  padding: var(--space-phi-4, 38px);
+  box-shadow: var(--panel-l1-box-shadow) !important;
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  transform: none; /* Straight and normal, not tilted */
+  cursor: default;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.comparison-column.quantum-column > * {
+  transform: none;
+}
+
+/* Dark theme overrides for Straight Keycap Cards with Cobalt Blue Outline */
+[data-theme="dark"] .comparison-column.classical-column,
+[data-theme="dark"] .comparison-column.quantum-column {
+  background: linear-gradient(180deg, #131826 0%, #0d121e 60%, #080c16 100%) !important;
+  border-top: 2.5px solid rgba(255, 255, 255, 0.35) !important;
+  border-left: 2px solid rgba(255, 255, 255, 0.15) !important;
+  border-right: 4px solid #001aa3 !important;
+  border-bottom: 12px solid #001275 !important;
+  border-radius: 12px !important;
+  box-shadow: 
+    0 0 0 4px #002aff,
+    0 8px 0 4px #001275,
+    inset 0 2px 1px rgba(255, 255, 255, 0.25),
+    0 24px 50px -4px rgba(0, 0, 0, 0.85),
+    0 10px 20px -2px rgba(0, 0, 0, 0.6) !important;
+}
+
+[data-theme="dark"] .comparison-title {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .comparison-subtitle {
+  color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .comparison-column.classical-column:hover,
+[data-theme="dark"] .comparison-column.quantum-column:hover {
+  transform: translateY(-2px) !important;
+  border-bottom-width: 15px !important;
+  box-shadow: 
+    0 0 0 4px #002aff,
+    0 10px 0 4px #001275,
+    inset 0 2px 1px rgba(255, 255, 255, 0.3),
+    0 30px 60px rgba(0, 42, 255, 0.4) !important;
+}
+
+[data-theme="dark"] .comparison-column.classical-column:active,
+[data-theme="dark"] .comparison-column.quantum-column:active {
+  transform: var(--keycap-active-transform) !important;
+  border-bottom-width: 5px !important;
+}
+
+/* COLUMN TOP BANNERS: Angled Split Chevrons */
+.column-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2-5) var(--space-4);
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border-subtle);
+  position: relative;
+  margin-bottom: var(--space-2);
+}
+
+.banner-title-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2-5);
+}
+
+.column-stage-pill {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 6px;
+  clip-path: none !important;
+  background: #002aff;
+  color: #ffffff;
+  border: 1px solid #002aff;
+}
+
+.column-stage-pill.quantum {
+  background: #002aff;
+  color: #ffffff;
+  border-color: #002aff;
+  box-shadow: 0 0 10px rgba(0, 42, 255, 0.4);
+}
+
+.column-banner.classical,
+.column-banner.quantum {
+  border-radius: 10px;
+  clip-path: none !important;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+}
+
+[data-theme="dark"] .column-banner.classical,
+[data-theme="dark"] .column-banner.quantum {
+  background: #1e2230;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.column-title {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+}
+
+[data-theme="dark"] .column-title {
+  color: #ffffff;
+}
+
+.column-pill {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #475569;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-weight: 700;
+}
+
+[data-theme="dark"] .column-pill {
+  color: #cbd5e1;
+  background: #0c0e14;
+  border-color: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+/* ==========================================================================
+   PARADIGM TRANSITION CONDUIT (Between Classical & Quantum)
+   Features the Signature Kyte Glyph representing Qenzix Q
+   ========================================================================== */
+.paradigm-transition-conduit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  margin: var(--space-phi-2, 16px) 0;
+}
+
+.conduit-line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-quantum-contrast), transparent);
+  box-shadow: 0 0 8px var(--color-quantum-contrast);
+}
+
+.conduit-center-hull {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-phi-4, 42px);
+  position: relative;
+}
+
+/* Signature Kyte Node: The Q of Qenzix */
+.conduit-kyte-node {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 64px;
+}
+
+.kyte-outer-frame {
+  width: 48px;
+  height: 60px;
+  background: var(--color-vibrant-blue-gradient);
+  clip-path: var(--clip-kite-logo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(0, 42, 255, 0.65);
+  animation: kytePulseGlow 3.5s ease-in-out infinite;
+  transition: transform var(--duration-fast) var(--ease-golden);
+}
+
+.kyte-outer-frame:hover {
+  transform: scale(1.12);
+}
+
+.kyte-inner-facet {
+  width: 36px;
+  height: 48px;
+  background: rgba(5, 19, 54, 0.85);
+  clip-path: var(--clip-kite-logo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.conduit-content-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2px;
+}
+
+.conduit-kicker {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-caps);
+  color: var(--color-quantum-contrast);
+}
+
+.conduit-desc {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+}
+
+.conduit-accent {
+  color: var(--color-quantum-contrast);
+  font-weight: var(--font-weight-bold);
+}
+
+.conduit-chevrons-stream {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-top: 2px;
+}
+
+.chevron-arrow {
+  font-size: 10px;
+  color: var(--color-quantum-contrast);
+  animation: chevronFlow 1.8s ease-in-out infinite;
+}
+
+.chevron-arrow:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.chevron-arrow:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+/* ==========================================================================
+   COMPARISON LEGEND BAR: Winged Triangular Node Conduit
+   ========================================================================== */
+.comparison-legend-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+  background: var(--color-surface-default);
+  border: 1px solid var(--color-border-subtle);
+  clip-path: var(--clip-chevron-wing);
+  padding: var(--space-3) var(--space-6);
+  box-shadow: var(--shadow-xs);
+  flex-wrap: wrap;
+}
+
+.legend-chip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.chip-indicator {
+  width: 9px;
+  height: 9px;
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.chip-indicator.classical {
+  background-color: var(--color-classical-contrast);
+  box-shadow: 0 0 8px var(--color-quantum-contrast);
+}
+
+.chip-indicator.quantum {
+  background-color: var(--color-quantum-contrast);
+  box-shadow: 0 0 8px var(--color-quantum-glow);
+}
+
+.chip-indicator.attack-active {
+  background-color: var(--color-error);
+  box-shadow: 0 0 8px var(--color-error);
+  animation: pulseDot 1.5s infinite;
+}
+
+.chip-indicator.attack-idle {
+  background-color: var(--color-success);
+}
+
+/* RESPONSIVE SAFETY: Fallback to Stacked on Screens below 1400px */
+@media (max-width: 1400px) {
+  .comparison-grid.is-split {
+    grid-template-columns: 1fr;
+    gap: var(--space-phi-5, 68px);
+  }
+}
+
+@media (max-width: 768px) {
+  .comparison-column.classical-column,
+  .comparison-column.quantum-column {
+    clip-path: none;
+    padding: var(--space-4);
+  }
+  .comparison-header-bar {
+    clip-path: none;
+    padding: var(--space-4);
+  }
+  .comparison-legend-bar {
+    clip-path: none;
+    padding: var(--space-3);
+  }
+}

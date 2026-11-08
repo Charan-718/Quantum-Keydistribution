@@ -2,76 +2,107 @@
 import React from 'react';
 import ClassicalSimulator from '../classical/ClassicalSimulator';
 import QuantumSimulator from '../quantum/QuantumSimulator';
-import '../../styles/shared.css';
+import { QuantumAtomIcon } from '../ui/Icons';
+import './SideBySideComparison.css';
 
-function SideBySideComparison({ simulationSpeed, showEavesdropper, keySize }) {
+function SideBySideComparison({ simulationSpeed, showEavesdropper, keySize, onOpen3DModel }) {
+  // Default is stacked flow: Stage 01 and Stage 02 are stacked with full width and zero clipping
+  const layoutMode = 'stacked';
+
   return (
-    <div className="comparison-container">
-      <div className="comparison-header">
-        <h2>Classical vs Quantum Key Distribution - Comparison</h2>
-        <p className="comparison-subtitle">
-          Real-time simulation of both protocols running simultaneously
-        </p>
-      </div>
-      
-      <div className="comparison-grid">
-        {/* Classical Panel */}
-        <div className="comparison-panel classical">
-          <div className="panel-header">
-            <div className="panel-title">
-              {/* <span className="panel-icon">🔐</span> */}
-              <h3>Classical Cryptography</h3>
-            </div>
-            <div className="panel-tag">
-              <span className="tag mathematical">Mathematical Security</span>
-              <span className="tag vulnerable">Quantum Vulnerable</span>
-            </div>
+    <div className={`comparison-container layout-${layoutMode}`}>
+      {/* MARQUEE BANNER: Level 1 Main Dashboard Panel */}
+      <div className="comparison-header-bar">
+        <div className="header-text-block">
+          <div className="header-badge-row">
+            <span className="section-kicker">DUAL SIMULATION ENGINE</span>
+            <span className="phi-tag">&phi; = 1.618 GOLDEN LATTICE</span>
           </div>
-          <ClassicalSimulator 
+          <h2 className="comparison-title">Real-Time Security Evaluation</h2>
+          <p className="comparison-subtitle">
+            Simultaneous real-time evaluation: computational hardness (RSA/DH) vs physical laws (Heisenberg uncertainty and no-cloning)
+          </p>
+        </div>
+      </div>
+
+      {/* DUAL ENGINE GRID / STACK */}
+      <div className={`comparison-grid is-${layoutMode}`}>
+        {/* STAGE 1: Classical Cryptography (Diffie-Hellman / RSA-2048) */}
+        <div className="comparison-column classical-column">
+          <div className="column-banner classical">
+            <div className="banner-title-group">
+              <span className="column-stage-pill">STAGE 01</span>
+              <span className="column-title">Classical Asymmetric Cryptography</span>
+            </div>
+            <span className="column-pill">Computational Hardness</span>
+          </div>
+          <ClassicalSimulator
             simulationSpeed={simulationSpeed}
             showEavesdropper={showEavesdropper}
             keySize={keySize}
           />
         </div>
-        
-        {/* Divider */}
-        <div className="comparison-divider">
-          <div className="divider-line"></div>
-          <div className="divider-text">VS</div>
-          <div className="divider-line"></div>
-        </div>
-        
-        {/* Quantum Panel */}
-        <div className="comparison-panel quantum">
-          <div className="panel-header">
-            <div className="panel-title">
-              {/* <span className="panel-icon">⚛️</span> */}
-              <h3>Quantum Cryptography</h3>
+
+        {/* PARADIGM TRANSITION CONDUIT (Active in Stacked Mode) */}
+        {layoutMode === 'stacked' && (
+          <div className="paradigm-transition-conduit" aria-hidden="true">
+            <div className="conduit-line left-line" />
+            <div className="conduit-center-hull">
+              {/* Central Pulsing Kyte Glyph representing Qenzix Q */}
+              <div className="conduit-kyte-node">
+                <div className="kyte-outer-frame">
+                  <div className="kyte-inner-facet">
+                    <QuantumAtomIcon size={20} color="#ffffff" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="conduit-content-block">
+                <span className="conduit-kicker">PARADIGM CONDUIT &bull; QUANTUM LEAP</span>
+                <span className="conduit-desc">
+                  Computational Factoring Vulnerability <span className="conduit-accent">&rarr;</span> Physical Axiom Immunity
+                </span>
+                <div className="conduit-chevrons-stream">
+                  <span className="chevron-arrow">&#9660;</span>
+                  <span className="chevron-arrow">&#9660;</span>
+                  <span className="chevron-arrow">&#9660;</span>
+                </div>
+              </div>
             </div>
-            <div className="panel-tag">
-              <span className="tag physical">Physical Security</span>
-              <span className="tag secure">Quantum Resistant</span>
-            </div>
+            <div className="conduit-line right-line" />
           </div>
-          <QuantumSimulator 
+        )}
+
+        {/* STAGE 2: Quantum Key Distribution (BB84 Protocol) */}
+        <div className="comparison-column quantum-column">
+          <div className="column-banner quantum">
+            <div className="banner-title-group">
+              <span className="column-stage-pill quantum">STAGE 02</span>
+              <span className="column-title">Quantum Key Distribution (BB84)</span>
+            </div>
+            <span className="column-pill">Physical Security Axiom</span>
+          </div>
+          <QuantumSimulator
             simulationSpeed={simulationSpeed}
             showEavesdropper={showEavesdropper}
+            onOpen3DModel={onOpen3DModel}
           />
         </div>
       </div>
-      
-      <div className="comparison-legend">
-        <div className="legend-item">
-          <div className="legend-color classical"></div>
-          <span>Classical: Based on Computational Hardness</span>
+
+      {/* Comparison Legend Bar */}
+      <div className="comparison-legend-bar">
+        <div className="legend-chip">
+          <span className="chip-indicator classical" />
+          <span>Classical: RSA / Diffie-Hellman Modular Arithmetic &bull; Computational Hardness</span>
         </div>
-        <div className="legend-item">
-          <div className="legend-color quantum"></div>
-          <span>Quantum: Based on Physics Laws</span>
+        <div className="legend-chip">
+          <span className="chip-indicator quantum" />
+          <span>Quantum: Single-Photon Conjugate Basis Polarization &bull; Heisenberg Certainty</span>
         </div>
-        <div className="legend-item">
-          <div className="legend-color attack"></div>
-          <span>Eavesdropper Active: {showEavesdropper ? 'YES' : 'NO'}</span>
+        <div className="legend-chip">
+          <span className={`chip-indicator ${showEavesdropper ? 'attack-active' : 'attack-idle'}`} />
+          <span>Eve Interceptor: {showEavesdropper ? 'ACTIVE (+25% QBER STATE COLLAPSE)' : 'IDLE (ZERO CHANNEL INTRUSION)'}</span>
         </div>
       </div>
     </div>

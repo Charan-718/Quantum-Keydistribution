@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 440" width="100%" height="100%" fill="none" role="img" aria-label="QENZIX Quantum Key Distribution Logo">
+  <title>QENZIX Quantum Key Distribution Logo</title>
+  <desc>Precision vector representation matching the continuous quantum cryptographic key logotype spelling QENZIX with a symmetric kite/diamond key bow, baseline transition channel, typographic key shaft, and telemetry bit.</desc>
+  <defs>
+    <!-- Metallic Platinum / Silver Gradient -->
+    <linearGradient id="denzixSilverGrad" gradientUnits="userSpaceOnUse" x1="30" y1="70" x2="950" y2="400">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="25%" stop-color="#f8fafc" />
+      <stop offset="65%" stop-color="#cbd5e1" />
+      <stop offset="100%" stop-color="#94a3b8" />
+    </linearGradient>
+
+    <!-- Intense Vibrant Cobalt Blue Gradient -->
+    <linearGradient id="denzixBlueGrad" gradientUnits="userSpaceOnUse" x1="30" y1="70" x2="950" y2="400">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="40%" stop-color="#002aff" />
+      <stop offset="80%" stop-color="#001ce8" />
+      <stop offset="100%" stop-color="#051336" />
+    </linearGradient>
+
+    <!-- Ambient Quantum Blue/Silver Glow Filter -->
+    <filter id="denzixKeyGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <g id="denzix-quantum-key" filter="url(#denzixKeyGlow)">
+    <!-- ============================================================== -->
+    <!-- 1. KEY BOW: Symmetric Diamond / Kyte Q, base aligned to y=375  -->
+    <!-- ============================================================== -->
+    <!-- Left Chevron < -->
+    <polyline
+      points="160,99 45,237 160,375"
+      stroke="url(#denzixSilverGrad)"
+      stroke-width="18"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <!-- Central Vertical Spine | -->
+    <line
+      x1="160" y1="99" x2="160" y2="375"
+      stroke="url(#denzixSilverGrad)"
+      stroke-width="18"
+      stroke-linecap="round"
+    />
+
+    <!-- Right Chevron > -->
+    <polyline
+      points="160,99 275,237 160,375"
+      stroke="url(#denzixSilverGrad)"
+      stroke-width="18"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <!-- Central Superposition Diamond Gemstone (Cobalt Core) -->
+    <polygon
+      points="160,185 115,237 160,289 205,237"
+      fill="rgba(0, 42, 255, 0.20)"
+      stroke="url(#denzixBlueGrad)"
+      stroke-width="3.5"
+      stroke-linejoin="round"
+    />
+    <circle cx="160" cy="237" r="5.5" fill="#002aff" />
+
+    <!-- ============================================================== -->
+    <!-- 2. TRANSITION PARALLEL CHANNEL & LETTER E - Baseline y=375     -->
+    <!-- ============================================================== -->
+    <!-- From right bow bottom, horizontal step and upward diagonal to top of E -->
+    <polyline
+      points="160,375 240,375 337,237 433,237 410,306 364,306 318,375 433,375"
+      stroke="url(#denzixSilverGrad)"
+      stroke-width="18"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <!-- ============================================================== -->
+    <!-- 3. LETTER N                                                    -->
+    <!-- ============================================================== -->
+    <polyline
+      points="433,375 510,237 579,375 648,237"
+      stroke="url(#denzixSilverGrad)"
+      stroke-width="18"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <!-- ============================================================== -->
+    <!-- 4. LETTER Z                                                    -->
+    <!-- ============================================================== -->
+    <polyline
+      points="648,237 805,237 648,375 755,375"
+      stroke="url(#denzixSilverGrad)"
+      stroke-width="18"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <!-- ============================================================== -->
+    <!-- 5. LETTER X & KEY BIT TEETH                                    -->
+    <!-- ============================================================== -->
+    <!-- Stem from Z into X, down-right to bottom of bit -->
+    <polyline
+      points="755,375 801,237 939,375 939,237"
+      stroke="url(#denzixSilverGrad)"
+      stroke-width="18"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <!-- Crossing stroke of X -->
+    <line
+      x1="801" y1="375" x2="939" y2="237"
+      stroke="url(#denzixSilverGrad)"
+      stroke-width="18"
+      stroke-linecap="round"
+    />
+
+    <!-- Vibrant Cobalt Quantum Photon node at the key bit tip -->
+    <circle cx="939" cy="306" r="6" fill="#002aff" />
+  </g>
+</svg>

@@ -1,0 +1,258 @@
+/* File: src/components/ui/Button.css */
+
+.ui-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wide);
+  border-radius: 7px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  transition: 
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard),
+    transform var(--duration-instant) var(--ease-standard);
+  text-decoration: none;
+  outline: none;
+  position: relative;
+}
+
+.ui-btn:focus-visible {
+  box-shadow: var(--focus-ring);
+}
+
+.ui-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* SIZES */
+.ui-btn--sm {
+  font-size: var(--font-size-xs);
+  padding: var(--space-1-5) var(--space-3);
+  height: 32px;
+}
+
+.ui-btn--md {
+  font-size: var(--font-size-sm);
+  padding: var(--space-2) var(--space-4);
+  height: 40px;
+}
+
+.ui-btn--lg {
+  font-size: var(--font-size-base);
+  padding: var(--space-3) var(--space-6);
+  height: 48px;
+}
+
+/* VARIANTS - 3D MECHANICAL KEYBOARD KEYS */
+/* Primary Action: Vibrant Cobalt Blue 3D Keycap */
+.ui-btn--primary,
+.ui-btn--classical {
+  background: linear-gradient(180deg, #2563eb 0%, #002aff 48%, #001fc4 100%) !important;
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.04em;
+  border-radius: 7px !important;
+  border-top: 2px solid rgba(255, 255, 255, 0.85) !important;
+  border-left: 1.5px solid rgba(147, 197, 253, 0.6) !important;
+  border-right: 2.5px solid #001aa3 !important;
+  border-bottom: 5px solid #001275 !important;
+  box-shadow: 
+    0 0 0 2px #001275,
+    0 3px 0 2px #000c47,
+    inset 0 2px 1px rgba(255, 255, 255, 0.65),
+    0 8px 20px rgba(0, 42, 255, 0.35) !important;
+  transition: transform 0.14s cubic-bezier(0.2, 0.8, 0.25, 1),
+              border-bottom-width 0.14s cubic-bezier(0.2, 0.8, 0.25, 1),
+              box-shadow 0.14s cubic-bezier(0.2, 0.8, 0.25, 1) !important;
+}
+
+.ui-btn--primary *,
+.ui-btn--classical * {
+  color: #ffffff !important;
+}
+
+.ui-btn--primary:hover:not(:disabled),
+.ui-btn--classical:hover:not(:disabled) {
+  transform: translateY(-2px) !important;
+  border-bottom-width: 6.5px !important;
+  box-shadow: 
+    0 0 0 2px #001275,
+    0 5px 0 2px #000c47,
+    inset 0 2px 1.5px #ffffff,
+    0 12px 28px rgba(0, 42, 255, 0.5) !important;
+}
+
+.ui-btn--primary:active:not(:disabled),
+.ui-btn--classical:active:not(:disabled) {
+  transform: translateY(3px) !important;
+  border-bottom-width: 1.5px !important;
+  box-shadow: 
+    0 0 0 2px #001275,
+    0 1px 0 2px #000c47,
+    inset 0 2px 3px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Secondary Action: Porcelain Silver 3D Keycap */
+.ui-btn--secondary {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 45%, #e2e8f0 100%) !important;
+  color: #0f172a !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.04em;
+  border-radius: 7px !important;
+  border-top: 2px solid #ffffff !important;
+  border-left: 1.5px solid #f8fafc !important;
+  border-right: 2.5px solid #cbd5e1 !important;
+  border-bottom: 5px solid #001fc4 !important;
+  box-shadow: 
+    0 0 0 2px #002aff,
+    0 3px 0 2px #001275,
+    inset 0 1.5px 1px #ffffff,
+    0 8px 16px rgba(0, 15, 60, 0.12) !important;
+  transition: transform 0.14s cubic-bezier(0.2, 0.8, 0.25, 1),
+              border-bottom-width 0.14s cubic-bezier(0.2, 0.8, 0.25, 1),
+              box-shadow 0.14s cubic-bezier(0.2, 0.8, 0.25, 1) !important;
+}
+
+.ui-btn--secondary * {
+  color: #0f172a !important;
+}
+
+.ui-btn--secondary:hover:not(:disabled) {
+  transform: translateY(-2px) !important;
+  border-bottom-width: 6.5px !important;
+  box-shadow: 
+    0 0 0 2px #002aff,
+    0 5px 0 2px #001275,
+    inset 0 2px 1.5px #ffffff,
+    0 12px 24px rgba(0, 42, 255, 0.25) !important;
+}
+
+.ui-btn--secondary:active:not(:disabled) {
+  transform: translateY(3px) !important;
+  border-bottom-width: 1.5px !important;
+  box-shadow: 
+    0 0 0 2px #002aff,
+    0 1px 0 2px #001275,
+    inset 0 2px 3px rgba(0, 0, 0, 0.2) !important;
+}
+
+[data-theme="dark"] .ui-btn--secondary {
+  background: linear-gradient(180deg, #1e2538 0%, #111827 50%, #0b0f19 100%) !important;
+  color: #f8fafc !important;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+  border-left: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-right: 2px solid #060913 !important;
+  border-bottom: 5px solid #000c4f !important;
+  box-shadow: 
+    0 0 0 2px #002aff,
+    0 3px 0 2px #000c47,
+    inset 0 1px 1px rgba(255, 255, 255, 0.18),
+    0 8px 18px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-theme="dark"] .ui-btn--secondary * {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .ui-btn--secondary:hover:not(:disabled) {
+  border-bottom-width: 6.5px !important;
+  box-shadow: 
+    0 0 0 2px #002aff,
+    0 5px 0 2px #000c47,
+    0 14px 28px rgba(0, 42, 255, 0.4) !important;
+}
+
+[data-theme="dark"] .ui-btn--secondary:active:not(:disabled) {
+  transform: translateY(3px) !important;
+  border-bottom-width: 1.5px !important;
+  box-shadow: 
+    0 0 0 2px #002aff,
+    0 1px 0 2px #000c47,
+    inset 0 2px 3px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Ghost Button */
+.ui-btn--ghost {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--color-text-primary);
+  border: 1px solid rgba(0, 42, 255, 0.2);
+  border-bottom: 2.5px solid rgba(0, 31, 196, 0.3);
+  border-radius: 7px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.15s ease;
+}
+
+.ui-btn--ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: #002aff;
+  color: #002aff;
+  transform: translateY(-1px);
+}
+
+.ui-btn--ghost:active:not(:disabled) {
+  transform: translateY(1.5px);
+  border-bottom-width: 1px;
+}
+
+[data-theme="dark"] .ui-btn--ghost {
+  background: rgba(15, 23, 42, 0.5);
+  border-color: rgba(255, 255, 255, 0.15);
+  border-bottom: 2.5px solid rgba(0, 42, 255, 0.5);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .ui-btn--ghost:hover:not(:disabled) {
+  background: rgba(30, 41, 59, 0.85);
+  border-color: #002aff;
+  color: #38bdf8;
+}
+
+/* Destructive / Alert Button */
+.ui-btn--destructive {
+  background-color: var(--color-error-soft);
+  color: var(--color-error);
+  border-color: var(--color-error-border);
+}
+
+.ui-btn--destructive:hover:not(:disabled) {
+  background-color: var(--color-error);
+  color: #ffffff;
+  border-color: var(--color-error);
+}
+
+/* Spinner */
+.ui-btn__spinner {
+  width: 16px;
+  height: 16px;
+  animation: ui-spin 0.75s linear infinite;
+  display: inline-flex;
+}
+
+.ui-btn__spinner svg {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes ui-spin {
+  to { transform: rotate(360deg); }
+}
+
+.ui-btn__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+

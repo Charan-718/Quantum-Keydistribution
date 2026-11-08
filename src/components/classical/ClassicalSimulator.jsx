@@ -1,56 +1,65 @@
 // File: src/components/classical/ClassicalSimulator.jsx
-import React, { useState, useEffect, useCallback } from 'react';  // Added useCallback
-// import '../../styles/classical.css';
+import React, { useState, useEffect, useCallback } from 'react';
 import { generateClassicalKeys, simulateDiffieHellman, encryptMessage } from '../../utils/cryptography';
 import KeyExchangeVisualization from './KeyExchangeVisualization';
 import EncryptionDecryptionDemo from './EncryptionDecryptionDemo';
 import SecurityMeter from './SecurityMeter';
+import { PlayIcon, RotateCcwIcon, KeyIcon, AlertTriangleIcon, CheckCircleIcon } from '../ui/Icons';
+import { Skeleton } from '../ui/Skeleton';
+import Badge from '../ui/Badge';
+import Button from '../ui/Button';
+import './ClassicalSimulator.css';
 
-import './ClassicalSimulator.css'; // In ClassicalSimulator.jsx
-
-function ClassicalSimulator({ simulationSpeed, showEavesdropper, keySize }) {
+function ClassicalSimulator({ simulationSpeed = 1, showEavesdropper, keySize }) {
   const [aliceKeys, setAliceKeys] = useState(null);
   const [bobKeys, setBobKeys] = useState(null);
   const [sharedSecret, setSharedSecret] = useState(null);
   const [transmissionStep, setTransmissionStep] = useState(0);
   const [encryptedMessage, setEncryptedMessage] = useState(null);
   const [eavesdroppedKey, setEavesdroppedKey] = useState(null);
+  const [isGenerating, setIsGenerating] = useState(false);
 
-  // Fixed: Added useCallback to prevent infinite re-renders
   const initializeKeys = useCallback(() => {
-    const { alice, bob } = generateClassicalKeys(keySize);
-    setAliceKeys(alice);
-    setBobKeys(bob);
+    setIsGenerating(true);
     setSharedSecret(null);
     setTransmissionStep(0);
     setEncryptedMessage(null);
     setEavesdroppedKey(null);
-  }, [keySize]);
+
+    // Simulate authentic key derivation calculation
+    setTimeout(() => {
+      const { alice, bob } = generateClassicalKeys(keySize);
+      setAliceKeys(alice);
+      setBobKeys(bob);
+      setIsGenerating(false);
+    }, 250 / simulationSpeed);
+  }, [keySize, simulationSpeed]);
 
   useEffect(() => {
-    // Initialize keys when component mounts or keySize changes
     initializeKeys();
-  }, [initializeKeys]); // Fixed: Added initializeKeys to dependency array
+  }, [initializeKeys]);
 
   const advanceStep = () => {
-    if (transmissionStep < 5) { // Changed from steps.length - 1 to hardcoded 5
-      setTransmissionStep(prev => prev + 1);
-      
+    if (transmissionStep < 5) {
+      const nextStep = transmissionStep + 1;
+      setTransmissionStep(nextStep);
+
       // Simulate key exchange at step 2
-      if (transmissionStep === 1 && aliceKeys && bobKeys) {
+      if (nextStep === 2 && aliceKeys && bobKeys) {
         const secret = simulateDiffieHellman(aliceKeys, bobKeys);
         setSharedSecret(secret);
-        
-        // Simulate eavesdropping
+
         if (showEavesdropper) {
           setEavesdroppedKey(secret.substring(0, 16) + '...');
         }
       }
-      
+
       // Encrypt message at step 4
-      if (transmissionStep === 3 && sharedSecret) {
+      if (nextStep === 4 && (sharedSecret || (aliceKeys && bobKeys))) {
+        const secret = sharedSecret || simulateDiffieHellman(aliceKeys, bobKeys);
+        if (!sharedSecret) setSharedSecret(secret);
         const message = 'OPERATION NIGHTFALL PROCEED TO CHECKPOINT ALPHA';
-        const encrypted = encryptMessage(message, sharedSecret);
+        const encrypted = encryptMessage(message, secret);
         setEncryptedMessage(encrypted);
       }
     }
@@ -61,33 +70,52 @@ function ClassicalSimulator({ simulationSpeed, showEavesdropper, keySize }) {
   };
 
   const steps = [
-    'Key Generation',
-    'Public Key Exchange',
-    'Shared Secret Computation',
-    'Symmetric Key Derivation',
-    'Message Encryption',
-    'Secure Transmission'
+    { label: 'Key Generation', desc: 'Private & Public Keys' },
+    { label: 'Public Exchange', desc: 'g^a & g^b mod p' },
+    { label: 'Shared Secret', desc: 'Compute g^(ab)' },
+    { label: 'Derivation', desc: 'HKDF Symmetric Key' },
+    { label: 'Encryption', desc: 'AES-256-GCM Block' },
+    { label: 'Transmission', desc: 'Ciphertext Over Wire' }
   ];
 
   return (
     <div className="classical-simulator">
       <div className="simulation-header">
-        <h2>Classical Cryptographic Protocol</h2>
-        <div className="protocol-badge">
-          <span className="protocol-name">RSA-{keySize} / Diffie-Hellman</span>
-          <span className="protocol-status">
-            {showEavesdropper ? 'UNDER ATTACK' : 'SECURE'}
-          </span>
+        <div className="header-meta">
+          <span className="section-kicker">ASYMMETRIC CRYPTOGRAPHIC PROTOCOL</span>
+          <h2 className="section-title">Diffie-Hellman / RSA-{keySize} Key Exchange</h2>
+        </div>
+        <div className="protocol-badge-wrapper">
+          <Badge
+            variant={showEavesdropper ? 'error' : 'classical'}
+            dot={true}
+            icon={showEavesdropper ? <AlertTriangleIcon size={13} /> : <CheckCircleIcon size={13} />}
+          >
+            {showEavesdropper ? 'CHANNEL INTERCEPTED' : 'UNATTACKED CHANNEL'}
+          </Badge>
         </div>
       </div>
 
-      <div className="progress-tracker">
-        {steps.map((step, index) => (
-          <div key={step} className={`step ${index <= transmissionStep ? 'completed' : ''} ${index === transmissionStep ? 'current' : ''}`}>
-            <div className="step-number">{index + 1}</div>
-            <div className="step-label">{step}</div>
-          </div>
-        ))}
+      {/* Progress Pipeline */}
+      <div className="progress-tracker" role="progressbar" aria-valuenow={transmissionStep + 1} aria-valuemin="1" aria-valuemax="6">
+        {steps.map((step, index) => {
+          const isCompleted = index < transmissionStep;
+          const isCurrent = index === transmissionStep;
+          return (
+            <div
+              key={step.label}
+              className={`step-item ${isCompleted ? 'is-completed' : ''} ${isCurrent ? 'is-current' : ''}`}
+            >
+              <div className="step-disc">
+                {isCompleted ? <CheckCircleIcon size={16} /> : index + 1}
+              </div>
+              <div className="step-content">
+                <span className="step-label">{step.label}</span>
+                <span className="step-desc">{step.desc}</span>
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       <div className="simulation-content">
@@ -99,8 +127,9 @@ function ClassicalSimulator({ simulationSpeed, showEavesdropper, keySize }) {
             currentStep={transmissionStep}
             showEavesdropper={showEavesdropper}
             eavesdroppedKey={eavesdroppedKey}
+            isGenerating={isGenerating}
           />
-          
+
           <SecurityMeter
             keySize={keySize}
             showEavesdropper={showEavesdropper}
@@ -115,34 +144,48 @@ function ClassicalSimulator({ simulationSpeed, showEavesdropper, keySize }) {
             sharedSecret={sharedSecret}
             currentStep={transmissionStep}
           />
-          
-          <div className="key-details">
-            <h3>Key Information</h3>
-            <div className="key-info">
+
+          <div className="key-details-card">
+            <h3 className="details-card-title">Cryptographic Material</h3>
+            <div className="key-info-list">
               <div className="key-item">
-                <span className="key-label">Alice's Private Key:</span>
-                <code className="key-value">
-                  {aliceKeys?.privateKey?.substring(0, 32) || 'Generating...'}
-                </code>
+                <span className="key-label">Alice Private Exponent (a):</span>
+                {isGenerating || !aliceKeys ? (
+                  <Skeleton variant="text" width="100%" height="24px" />
+                ) : (
+                  <code className="key-value mono">
+                    {aliceKeys.privateKey.substring(0, 32)}...
+                  </code>
+                )}
               </div>
+
               <div className="key-item">
-                <span className="key-label">Bob's Public Key:</span>
-                <code className="key-value">
-                  {bobKeys?.publicKey?.substring(0, 32) || 'Generating...'}
-                </code>
+                <span className="key-label">Bob Public Exchange (g^b mod p):</span>
+                {isGenerating || !bobKeys ? (
+                  <Skeleton variant="text" width="100%" height="24px" />
+                ) : (
+                  <code className="key-value mono">
+                    {bobKeys.publicKey.substring(0, 32)}...
+                  </code>
+                )}
               </div>
+
               {sharedSecret && (
                 <div className="key-item">
-                  <span className="key-label">Shared Secret:</span>
-                  <code className="key-value secure">
+                  <span className="key-label">Computed Shared Secret g^(ab) mod p:</span>
+                  <code className="key-value secure mono">
                     {sharedSecret.substring(0, 32)}...
                   </code>
                 </div>
               )}
+
               {showEavesdropper && eavesdroppedKey && (
                 <div className="key-item compromised">
-                  <span className="key-label">🕵️ Eavesdropper's Guess:</span>
-                  <code className="key-value">
+                  <span className="key-label intercept-label">
+                    <AlertTriangleIcon size={13} />
+                    <span>Intercepted Traffic (Eve Recovered Fragment):</span>
+                  </span>
+                  <code className="key-value error mono">
                     {eavesdroppedKey}
                   </code>
                 </div>
@@ -152,20 +195,35 @@ function ClassicalSimulator({ simulationSpeed, showEavesdropper, keySize }) {
         </div>
       </div>
 
-      <div className="simulation-controls">
-        <button 
-          className="control-btn primary"
+      <div className="simulation-controls-row">
+        <Button
+          variant="classical"
+          size="md"
+          icon={<PlayIcon size={15} />}
           onClick={advanceStep}
-          disabled={transmissionStep >= 5}
+          disabled={transmissionStep >= 5 || isGenerating}
         >
-          {transmissionStep === 0 ? 'Start Protocol' : 'Next Step'}
-        </button>
-        <button className="control-btn secondary" onClick={resetSimulation}>
+          {transmissionStep === 0 ? 'Initialize Protocol Run' : 'Advance Next Step'}
+        </Button>
+
+        <Button
+          variant="secondary"
+          size="md"
+          icon={<RotateCcwIcon size={14} />}
+          onClick={resetSimulation}
+        >
           Reset Simulation
-        </button>
-        <button className="control-btn" onClick={initializeKeys}>
-          Generate New Keys
-        </button>
+        </Button>
+
+        <Button
+          variant="secondary"
+          size="md"
+          icon={<KeyIcon size={14} />}
+          onClick={initializeKeys}
+          disabled={isGenerating}
+        >
+          Regenerate Key Pair
+        </Button>
       </div>
     </div>
   );

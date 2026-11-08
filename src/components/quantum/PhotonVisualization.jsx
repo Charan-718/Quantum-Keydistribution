@@ -1,195 +1,144 @@
 // File: src/components/quantum/PhotonVisualization.jsx
 import React, { useEffect, useState } from 'react';
-import '../../styles/quantum.css';
+import { QuantumAtomIcon, ShieldCheckIcon, EyeIcon } from '../ui/Icons';
+import './PhotonVisualization.css';
 
-import './PhotonVisualization.css'; // In PhotonVisualization.jsx
-
-function PhotonVisualization({ 
-  photons, 
-  transmissionPhase, 
-  showEavesdropper, 
-  simulationSpeed 
+function PhotonVisualization({
+  photons,
+  transmissionPhase,
+  showEavesdropper,
+  simulationSpeed = 1
 }) {
   const [animatedPhotons, setAnimatedPhotons] = useState([]);
-  const [interferencePattern, setInterferencePattern] = useState([]);
 
   useEffect(() => {
     if (transmissionPhase === 'transmitting' && photons.length > 0) {
-      // Create animated photons
-      const newAnimatedPhotons = photons.map((photon, index) => ({
+      const newAnimatedPhotons = photons.slice(0, 18).map((photon, index) => ({
         ...photon,
         id: index,
-        x: 0,
-        y: 50 + (index % 10) * 40,
-        targetX: 800,
+        x: 40,
+        y: 40 + (index % 6) * 36,
+        targetX: 680,
         progress: 0,
         isMeasured: false,
         isDisturbed: false
       }));
       setAnimatedPhotons(newAnimatedPhotons);
-      
-      // Generate interference pattern if eavesdropper
-      if (showEavesdropper) {
-        const pattern = [];
-        for (let i = 0; i < 20; i++) {
-          pattern.push({
-            x: Math.random() * 800,
-            y: Math.random() * 400,
-            intensity: Math.random()
-          });
-        }
-        setInterferencePattern(pattern);
-      }
     }
-  }, [photons, transmissionPhase, showEavesdropper]);
+  }, [photons, transmissionPhase]);
 
   useEffect(() => {
     if (transmissionPhase !== 'transmitting' || animatedPhotons.length === 0) return;
-    
+
     const interval = setInterval(() => {
-      setAnimatedPhotons(prev => 
+      setAnimatedPhotons(prev =>
         prev.map(photon => {
-          const newProgress = photon.progress + 0.01 * simulationSpeed;
-          const isDisturbed = showEavesdropper && Math.random() < 0.3 && newProgress > 0.3;
-          
+          const newProgress = photon.progress + 0.015 * simulationSpeed;
+          const isDisturbed = showEavesdropper && Math.random() < 0.28 && newProgress > 0.35;
+
           return {
             ...photon,
             progress: newProgress >= 1 ? 1 : newProgress,
-            x: 0 + (800 - 0) * newProgress,
-            isDisturbed,
-            isMeasured: newProgress >= 0.7
+            x: 40 + (640 - 40) * Math.min(1, newProgress),
+            isDisturbed: photon.isDisturbed || isDisturbed,
+            isMeasured: newProgress >= 0.75
           };
-        }).filter(photon => photon.progress < 1.1)
+        }).filter(photon => photon.progress < 1.05)
       );
-    }, 50);
-    
+    }, 40);
+
     return () => clearInterval(interval);
   }, [transmissionPhase, animatedPhotons.length, simulationSpeed, showEavesdropper]);
 
-  const getPhotonStyle = (photon) => {
-    let rotation = 0;
-    if (photon.polarization === 'vertical') rotation = 90;
-    if (photon.polarization === '45deg') rotation = 45;
-    if (photon.polarization === '135deg') rotation = 135;
-    
-    return {
-      left: `${photon.x}px`,
-      top: `${photon.y}px`,
-      transform: `translate(-50%, -50%) rotate(${rotation}deg)`,
-      opacity: photon.progress > 0.95 ? 0 : 1,
-      filter: photon.isDisturbed ? 'drop-shadow(0 0 10px #FF2E5C)' : 'none'
-    };
+  const getPolarizationGlyph = (photon) => {
+    if (photon.polarization === 'vertical') return '|';
+    if (photon.polarization === 'horizontal') return '—';
+    if (photon.polarization === '45deg') return '/';
+    return '\\';
   };
 
   return (
-    <div className="photon-visualization">
-      <div className="viz-header">
-        <h3>Quantum Photon Transmission</h3>
-        <div className="viz-stats">
-          <span className="stat">Photons: {animatedPhotons.length}</span>
-          <span className="stat">Basis: Random</span>
-          <span className="stat">Phase: {transmissionPhase}</span>
+    <div className="photon-visualization-card">
+      <div className="viz-card-header">
+        <h3 className="viz-card-title">Single-Photon Quantum Channel (BB84)</h3>
+        <div className="viz-card-tags">
+          <span className="vtag">Phase: {transmissionPhase}</span>
+          <span className="vtag">Active Pulses: {animatedPhotons.length}</span>
         </div>
       </div>
-      
-      <div className="quantum-channel">
-        {/* Channel Background */}
-        <div className="channel-tube">
-          <div className="tube-glow"></div>
+
+      <div className="quantum-channel-stage">
+        {/* Optical Fiber Core Axis */}
+        <div className="channel-fiber-core" aria-hidden="true">
+          <div className="channel-fiber-axis" />
         </div>
-        
-        {/* Interference Pattern (if eavesdropper) */}
-        {showEavesdropper && interferencePattern.map((point, index) => (
-          <div
-            key={index}
-            className="interference-point"
-            style={{
-              left: `${point.x}px`,
-              top: `${point.y}px`,
-              opacity: point.intensity * 0.5
-            }}
-          />
-        ))}
-        
-        {/* Photons */}
+
+        {/* Alice Emitter Station */}
+        <div className="channel-station alice-station">
+          <div className="station-icon alice-icon">
+            <QuantumAtomIcon size={16} />
+          </div>
+          <span className="station-name">Alice</span>
+          <span className="station-role">Laser Pulses</span>
+        </div>
+
+        {/* Photons in Flight */}
         {animatedPhotons.map(photon => (
           <div
             key={photon.id}
-            className={`photon-particle ${photon.basis} ${photon.isDisturbed ? 'disturbed' : ''}`}
-            style={getPhotonStyle(photon)}
+            className={`photon-node ${photon.basis} ${photon.isDisturbed ? 'is-disturbed' : ''}`}
+            style={{
+              left: `${photon.x}px`,
+              top: `${photon.y}px`,
+            }}
             title={`Bit: ${photon.bit}, Basis: ${photon.basis}, Pol: ${photon.polarization}`}
           >
-            <div className="photon-core"></div>
-            <div className="photon-trail"></div>
+            <span className="photon-glyph">{getPolarizationGlyph(photon)}</span>
             {photon.isDisturbed && (
-              <div className="disturbance-effect">
-                <div className="disturbance-ring"></div>
-                <div className="disturbance-text">MEASURED</div>
-              </div>
+              <span className="disturbed-pulse-halo" aria-hidden="true" />
             )}
           </div>
         ))}
-        
-        {/* Endpoints */}
-        <div className="channel-endpoint source">
-          {/* <div className="endpoint-icon">⚛️</div> */}
-          <div className="endpoint-label">Alice <br/>(Source)</div>
-          <div className="endpoint-status">
-            {transmissionPhase === 'transmitting' ? 'EMITTING' : 'READY'}
-          </div>
-        </div>
-        
-        <div className="channel-endpoint detector">
-          {/* <div className="endpoint-icon">🔬</div> */}
-          <div className="endpoint-label">Bob <br/>(Detector)</div>
-          <div className="endpoint-status">
-            {transmissionPhase === 'transmitting' ? 'DETECTING' : 'READY'}
-          </div>
-        </div>
-        
-        {/* Eavesdropper */}
+
+        {/* Eve Intrusion Detector */}
         {showEavesdropper && (
-          <div className="eavesdropper-probe">
-            {/* <div className="probe-icon">👁️</div> */}
-            <div className="probe-label">Eve's Measurement</div>
-            <div className="probe-status">INTERCEPTING</div>
+          <div className="eve-intercept-marker">
+            <EyeIcon size={14} className="eve-marker-icon" />
+            <span className="eve-marker-label">Eve Measurement</span>
           </div>
         )}
-      </div>
-      
-      <div className="polarization-legend">
-        <div className="legend-title">Photon Polarization States:</div>
-        <div className="legend-items">
-          <div className="legend-item">
-            <div className="legend-symbol rect vertical">↕️</div>
-            <span>Rectilinear Basis: | (Vertical) / — (Horizontal)</span>
+
+        {/* Bob Detector Station */}
+        <div className="channel-station bob-station">
+          <div className="station-icon bob-icon">
+            <ShieldCheckIcon size={16} />
           </div>
-          <div className="legend-item">
-            <div className="legend-symbol diag deg45">↗️</div>
-            <span>Diagonal Basis: ↗ (45°) / ↖ (135°)</span>
-          </div>
-          <div className="legend-item">
-            <div className="legend-symbol disturbed">💥</div>
-            <span>Disturbed: Eavesdropper measurement detected</span>
-          </div>
+          <span className="station-name">Bob</span>
+          <span className="station-role">APD Detector</span>
         </div>
       </div>
-      
-      <div className="quantum-principle">
-        <h4>Quantum Principle in Action:</h4>
-        <p>
-          <strong>Heisenberg Uncertainty Principle:</strong> It is impossible to measure both 
-          the polarization and the basis of a photon simultaneously without disturbing it.
-        </p>
-        <p>
-          <strong>No-Cloning Theorem:</strong> Quantum states cannot be copied. Any attempt 
-          to intercept and measure photons introduces detectable disturbances.
-        </p>
-        {showEavesdropper && (
-          <div className="principle-warning">
-            Eavesdropper's measurements collapse photon states, creating detectable errors
+
+      {/* Polarization Legend */}
+      <div className="polarization-legend-bar">
+        <span className="legend-heading">Polarization Basis States:</span>
+        <div className="legend-items-list">
+          <div className="legend-item">
+            <span className="basis-glyph-box rect">|</span>
+            <span>Rectilinear Vertical (90° / Bit 1)</span>
           </div>
-        )}
+          <div className="legend-item">
+            <span className="basis-glyph-box rect">—</span>
+            <span>Rectilinear Horizontal (0° / Bit 0)</span>
+          </div>
+          <div className="legend-item">
+            <span className="basis-glyph-box diag">/</span>
+            <span>Diagonal 45° (|+⟩ / Bit 1)</span>
+          </div>
+          <div className="legend-item">
+            <span className="basis-glyph-box diag">\</span>
+            <span>Diagonal 135° (|-⟩ / Bit 0)</span>
+          </div>
+        </div>
       </div>
     </div>
   );

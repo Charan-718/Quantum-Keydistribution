@@ -1,0 +1,581 @@
+/* File: src/components/landing/QuantumTriadCards.css */
+/* 3D MECHANICAL KEYBOARD CLUSTER: Center Blue Keycap surrounded by 4 White Keycaps */
+
+.triad-keyboard-cluster {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr 1fr;
+  grid-template-rows: auto auto auto;
+  grid-template-areas:
+    ".       top      ."
+    "left    center   right"
+    ".       bottom   .";
+  gap: 22px 26px;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+  max-width: 1260px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+/* Universal Keycap Architecture */
+.triad-cluster-card {
+  position: relative;
+  border-radius: 9px;
+  user-select: none;
+  cursor: pointer;
+  transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.25, 1),
+              border-bottom-width 0.15s cubic-bezier(0.2, 0.8, 0.25, 1),
+              box-shadow 0.15s cubic-bezier(0.2, 0.8, 0.25, 1);
+  box-sizing: border-box;
+  opacity: 1;
+}
+
+.keycap-top-dish {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 4 SURROUNDING TRANSPARENT CARDS (Top, Left, Right, Bottom - Backside wave visible) */
+.triad-cluster-card:not(.card-center-blue) {
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border-top: 2.5px solid rgba(255, 255, 255, 0.95);
+  border-left: 2px solid rgba(255, 255, 255, 0.7);
+  border-right: 3.5px solid rgba(0, 42, 255, 0.35);
+  border-bottom: 7px solid #001fc4;
+  box-shadow: 
+    0 0 0 3px #002aff,
+    0 4px 0 3px #001275,
+    inset 0 2px 1.5px rgba(255, 255, 255, 0.9),
+    0 12px 24px rgba(0, 15, 60, 0.12);
+  color: #0f172a;
+}
+
+.triad-cluster-card:not(.card-center-blue):hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  transform: translateY(-3px);
+  border-bottom-width: 9px;
+  box-shadow: 
+    0 0 0 3px #002aff,
+    0 6px 0 3px #001275,
+    inset 0 2.5px 2px #FFFFFF,
+    0 18px 36px rgba(0, 42, 255, 0.25);
+}
+
+.triad-cluster-card:not(.card-center-blue):active {
+  transform: translateY(3px);
+  border-bottom-width: 2px;
+  box-shadow: 
+    0 0 0 3px #002aff,
+    0 1px 0 3px #001275,
+    inset 0 2px 3px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Card Placements */
+.card-top {
+  grid-area: top;
+  width: 100%;
+  max-width: 600px;
+}
+
+.card-left {
+  grid-area: left;
+  width: 100%;
+}
+
+.card-right {
+  grid-area: right;
+  width: 100%;
+}
+
+.card-bottom {
+  grid-area: bottom;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* ==========================================================================
+   CENTER VIBRANT BLUE KEYCAP CARD (Matching "your content" Key in Reference)
+   ========================================================================== */
+.card-center-blue,
+.keycap-card.card-center-blue,
+.keycap-card.keycap-cobalt.card-center-blue {
+  grid-area: center;
+  width: 100%;
+  border-radius: 9px !important;
+  background: linear-gradient(180deg, #2563eb 0%, #002aff 48%, #001fc4 100%) !important;
+  border-top: 3px solid rgba(255, 255, 255, 0.95) !important;
+  border-left: 2.5px solid rgba(147, 197, 253, 0.75) !important;
+  border-right: 4px solid #001aa3 !important;
+  border-bottom: 9px solid #001275 !important;
+  box-shadow: 
+    0 0 0 4px #001275,
+    0 6px 0 4px #000c47,
+    inset 0 3px 2px rgba(255, 255, 255, 0.75),
+    inset 0 -3px 5px rgba(0, 10, 60, 0.6),
+    0 22px 50px rgba(0, 42, 255, 0.55) !important;
+  color: #ffffff !important;
+  cursor: default;
+  opacity: 1 !important;
+}
+
+.card-center-blue *,
+.keycap-card.card-center-blue *,
+.keycap-card.keycap-cobalt.card-center-blue * {
+  color: #ffffff !important;
+}
+
+.card-center-blue:hover,
+.keycap-card.card-center-blue:hover,
+.keycap-card.keycap-cobalt.card-center-blue:hover {
+  transform: translateY(-2px) !important;
+  border-bottom-width: 10px !important;
+  box-shadow: 
+    0 0 0 4px #001275,
+    0 8px 0 4px #000c47,
+    inset 0 3px 2px #ffffff,
+    0 28px 60px rgba(0, 42, 255, 0.7) !important;
+}
+
+.center-dish {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.center-brand-glyph {
+  margin-bottom: -2px;
+}
+
+.triad-center-kicker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #93c5fd !important;
+  text-transform: uppercase;
+}
+
+.triad-center-title {
+  font-family: var(--font-display, 'Outfit', sans-serif);
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: #ffffff !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+
+.triad-center-desc {
+  font-family: var(--font-sans, sans-serif);
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.92) !important;
+  margin: 0;
+  max-width: 480px;
+}
+
+.center-status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: rgba(0, 18, 117, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  font-family: var(--font-mono, monospace);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #fcc800 !important;
+  margin-top: 4px;
+}
+
+.center-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #fcc800;
+  box-shadow: 0 0 8px #fcc800;
+}
+
+.pulse-active {
+  animation: pulseDot 1.8s infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.6; }
+}
+
+/* ==========================================================================
+   COMPACT SURROUNDING CARD ELEMENTS
+   ========================================================================== */
+.card-header-compact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.keycap-key-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  font-family: var(--font-display, 'Outfit', sans-serif);
+  font-weight: 900;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.keycap-key-badge.cobalt {
+  background: linear-gradient(180deg, #2563eb 0%, #002aff 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 4px rgba(0, 42, 255, 0.35);
+}
+
+.keycap-key-badge.silver {
+  background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+  color: #002aff;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.keycap-key-badge.alert-key {
+  background: #070a14;
+  border: 1.5px solid #ffd600;
+  box-shadow: 0 0 8px rgba(255, 214, 0, 0.45);
+}
+
+.card-kicker {
+  font-family: var(--font-mono, monospace);
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #002aff;
+  text-transform: uppercase;
+}
+
+.card-badge {
+  font-family: var(--font-mono, monospace);
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-left: auto;
+  text-transform: uppercase;
+}
+
+.cobalt-pill {
+  background: rgba(0, 42, 255, 0.12);
+  color: #002aff;
+  border: 1px solid rgba(0, 42, 255, 0.35);
+}
+
+.cyan-pill {
+  background: rgba(0, 42, 255, 0.1);
+  color: #002aff;
+  border: 1px solid rgba(0, 42, 255, 0.3);
+}
+
+.gold-pill {
+  background: rgba(255, 214, 0, 0.2);
+  color: #070a14;
+  border: 1px solid #ffd600;
+  font-weight: 800;
+}
+
+.alert-pill {
+  background: rgba(255, 214, 0, 0.22);
+  color: #070a14;
+  border: 1.5px solid #ffd600;
+  font-weight: 800;
+}
+
+.card-title-compact {
+  font-family: var(--font-display, 'Outfit', sans-serif);
+  font-size: 14px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.card-desc-compact {
+  font-family: var(--font-sans, sans-serif);
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: #334155;
+  margin: 0;
+  font-weight: 500;
+}
+
+.card-quantum-formula-compact {
+  background: rgba(0, 42, 255, 0.08);
+  border: 1px solid rgba(0, 42, 255, 0.25);
+  border-radius: 6px;
+  padding: 4px 8px;
+  text-align: center;
+}
+
+.card-quantum-formula-compact code {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 700;
+  color: #002aff;
+}
+
+.basis-diagram-compact {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.basis-diagram-compact .basis-tag {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 7px;
+  border-radius: 4px;
+}
+
+.basis-diagram-compact .basis-tag.rect {
+  background: rgba(0, 42, 255, 0.1);
+  color: #002aff;
+  border: 1px solid rgba(0, 42, 255, 0.25);
+}
+
+.basis-diagram-compact .basis-tag.diag {
+  background: rgba(0, 42, 255, 0.08);
+  color: #002aff;
+  border: 1px solid rgba(0, 42, 255, 0.25);
+}
+
+.qber-meter-compact {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.qber-meter-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(0, 42, 255, 0.1);
+  border: 1px solid rgba(0, 42, 255, 0.25);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.qber-meter-track .qber-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffd600 0%, #002aff 100%);
+  border-radius: 3px;
+}
+
+.qber-label-compact {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 800;
+  color: #070a14;
+}
+
+.card-footer-metrics-compact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+
+.card-footer-metrics-compact .metric-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(0, 42, 255, 0.08);
+  border: 1px solid rgba(0, 42, 255, 0.2);
+  border-radius: 5px;
+  padding: 2px 7px;
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+}
+
+.card-footer-metrics-compact .metric-pill.highlight {
+  background: rgba(0, 42, 255, 0.14);
+  border-color: #002aff;
+}
+
+.card-footer-metrics-compact .metric-pill.alert {
+  background: rgba(255, 214, 0, 0.16);
+  border: 1px solid #ffd600;
+}
+
+.card-footer-metrics-compact .m-label {
+  color: #475569;
+  font-weight: 700;
+}
+
+.card-footer-metrics-compact .m-val {
+  color: #002aff;
+  font-weight: 800;
+}
+
+.card-footer-metrics-compact .metric-pill.alert .m-label {
+  color: #070a14;
+  font-weight: 800;
+}
+
+.card-footer-metrics-compact .metric-pill.alert .m-val {
+  color: #002aff;
+  font-weight: 900;
+}
+
+/* ==========================================================================
+   DARK THEME CONTRAST (Transparent Glass + 4-Color Axiom)
+   ========================================================================== */
+[data-theme="dark"] .triad-cluster-card:not(.card-center-blue) {
+  border-radius: 9px !important;
+  background: rgba(0, 42, 255, 0.03) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  border-top: 2px solid rgba(255, 255, 255, 0.45) !important;
+  border-left: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+  border-right: 3px solid #001aa3 !important;
+  border-bottom: 7px solid #001275 !important;
+  box-shadow: 
+    0 0 0 3px #002aff,
+    0 4px 0 3px #001275,
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.25),
+    0 10px 22px rgba(0, 15, 60, 0.25) !important;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .triad-cluster-card:not(.card-center-blue):hover {
+  background: rgba(0, 42, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .card-title-compact {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .card-desc-compact {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .card-kicker {
+  color: #60a5fa;
+}
+
+[data-theme="dark"] .card-quantum-formula-compact {
+  background: rgba(0, 42, 255, 0.2);
+  border-color: rgba(0, 42, 255, 0.45);
+}
+
+[data-theme="dark"] .card-quantum-formula-compact code {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .card-footer-metrics-compact .metric-pill {
+  background: rgba(0, 42, 255, 0.18);
+  border-color: rgba(0, 42, 255, 0.35);
+}
+
+[data-theme="dark"] .card-footer-metrics-compact .m-label {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .card-footer-metrics-compact .m-val {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .card-footer-metrics-compact .metric-pill.alert {
+  background: rgba(255, 214, 0, 0.14);
+  border-color: #ffd600;
+}
+
+[data-theme="dark"] .card-footer-metrics-compact .metric-pill.alert .m-label {
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .card-footer-metrics-compact .metric-pill.alert .m-val {
+  color: #ffd600;
+}
+
+[data-theme="dark"] .gold-pill {
+  background: rgba(255, 214, 0, 0.15);
+  color: #ffd600;
+  border-color: #ffd600;
+}
+
+[data-theme="dark"] .alert-pill {
+  color: #ffd600;
+  border-color: #ffd600;
+  background: rgba(255, 214, 0, 0.15);
+}
+
+[data-theme="dark"] .qber-meter-track {
+  background: rgba(0, 42, 255, 0.25) !important;
+  border-color: #002aff !important;
+}
+
+[data-theme="dark"] .qber-meter-track .qber-fill {
+  background: #ffd600 !important;
+  box-shadow: 0 0 10px rgba(255, 214, 0, 0.9) !important;
+}
+
+[data-theme="dark"] .qber-label-compact {
+  color: #ffd600;
+}
+
+/* ==========================================================================
+   RESPONSIVE LAYOUTS
+   ========================================================================== */
+@media (max-width: 1080px) {
+  .triad-keyboard-cluster {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas:
+      "center center"
+      "top    top"
+      "left   right"
+      "bottom bottom";
+    gap: 18px;
+    max-width: 720px;
+  }
+
+  .card-top,
+  .card-bottom {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .triad-keyboard-cluster {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "center"
+      "top"
+      "left"
+      "right"
+      "bottom";
+    gap: 16px;
+  }
+}

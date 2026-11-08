@@ -1594,8 +1594,12 @@
 }
 
 .details-list li::before {
-  content: '⚛️';
-  font-size: 0.8rem;
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-quantum-primary, #0284c7);
+  margin-top: 0.45rem;
   flex-shrink: 0;
 }
 

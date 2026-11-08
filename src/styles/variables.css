@@ -1,62 +1,100 @@
-/* CSS Variables - Global Design Tokens */
+/* File: src/styles/variables.css */
+/* High-Fashion Metallic Silver & Intense Vibrant Cobalt Blue Design System */
 :root {
-  /* Primary Colors */
-  --primary-bg: #0A1A3A;
-  --secondary-bg: #1E2530;
-  --tertiary-bg: #2A3441;
-  --card-bg: rgba(30, 37, 48, 0.8);
-  
-  /* Quantum Colors */
-  --quantum-cyan: #00E5FF;
-  --quantum-cyan-light: rgba(0, 229, 255, 0.2);
-  --quantum-cyan-dark: #0099CC;
-  --secure-emerald: #00FF9D;
-  --secure-emerald-light: rgba(0, 255, 157, 0.2);
-  --secure-emerald-dark: #00CC99;
-  
-  /* Classical Colors */
-  --classical-blue: #4DABFF;
-  --classical-blue-light: rgba(77, 171, 255, 0.2);
-  --classical-blue-dark: #2A6FCC;
-  
-  /* Alert Colors */
-  --alert-crimson: #FF2E5C;
-  --alert-crimson-light: rgba(255, 46, 92, 0.2);
-  --warning-amber: #FFA726;
-  --warning-amber-light: rgba(255, 167, 38, 0.2);
-  
-  /* Text Colors */
-  --text-primary: #F0F4F8;
-  --text-secondary: #8B9CB0;
-  --text-muted: #5A687C;
-  
-  /* Border & Shadows */
-  --border-color: #3A4451;
-  --border-light: rgba(90, 104, 124, 0.3);
-  --shadow-color: rgba(0, 0, 0, 0.3);
-  --glow-quantum: 0 0 20px rgba(0, 229, 255, 0.5);
-  --glow-classical: 0 0 20px rgba(77, 171, 255, 0.3);
-  --glow-danger: 0 0 20px rgba(255, 46, 92, 0.5);
-  
-  /* Animations */
+  /* Layout Containers */
+  --container-max-width: 1360px;
+
+  /* Canvas & Atmospheric Backgrounds */
+  --primary-bg: var(--color-bg-canvas);
+  --secondary-bg: var(--color-bg-base);
+  --tertiary-bg: var(--color-bg-subtle);
+  --card-bg: var(--color-surface-default);
+  --card-bg-elevated: var(--color-surface-elevated);
+  --card-bg-dark: var(--color-surface-inset);
+
+  /* Metallic Silver & Vibrant Cobalt Blue Palette */
+  --gold-light: var(--color-quantum-contrast);
+  --gold-highlight: #ffffff;
+  --gold-primary: var(--color-quantum-primary);
+  --gold-secondary: #001fd6;
+  --gold-dark: #0018a8;
+  --gold-deep: #051336;
+  --gold-shadow: rgba(0, 42, 255, 0.35);
+  --gold-alpha-15: rgba(0, 42, 255, 0.12);
+  --gold-alpha-30: rgba(0, 42, 255, 0.25);
+  --gold-alpha-50: rgba(0, 42, 255, 0.5);
+
+  /* Gradients */
+  --gold-gradient: var(--color-gold-gradient);
+  --gold-gradient-hover: linear-gradient(135deg, #0038ff 0%, #002aff 40%, #001ce8 80%, #051336 100%);
+  --gold-gradient-horizontal: linear-gradient(90deg, #002aff 0%, #001ce8 50%, #051336 100%);
+  --gold-text-gradient: var(--color-gold-text-glow);
+  --gold-gradient-subtle: rgba(0, 42, 255, 0.08);
+
+  /* Quantum Cyan & Cobalt */
+  --quantum-cyan: var(--color-quantum-primary);
+  --quantum-cyan-glow: var(--color-quantum-glow);
+  --quantum-cyan-light: var(--color-quantum-soft);
+  --quantum-cyan-dark: #0018a8;
+  --secure-emerald: var(--color-success);
+  --secure-emerald-light: var(--color-success-soft);
+  --secure-emerald-dark: #047857;
+
+  /* Classical Cryptography Accent (Deep Royal Cobalt / Platinum) */
+  --classical-blue: var(--color-classical-primary);
+  --classical-blue-light: var(--color-classical-soft);
+  --classical-blue-dark: #051336;
+  --classical-cyan: var(--color-quantum-contrast);
+
+  /* Alert & Warnings */
+  --alert-crimson: var(--color-error);
+  --alert-crimson-light: var(--color-error-soft);
+  --warning-amber: var(--color-warning);
+  --warning-amber-light: var(--color-warning-soft);
+
+  /* Typography Colors */
+  --text-primary: var(--color-text-primary);
+  --text-secondary: var(--color-text-secondary);
+  --text-muted: var(--color-text-muted);
+  --text-gold: var(--color-quantum-contrast);
+
+  /* Borders & Shadows */
+  --border-color: var(--color-border-default);
+  --border-light: var(--color-border-subtle);
+  --border-gold-strong: var(--color-border-strong);
+  --shadow-color: rgba(0, 0, 0, 0.25);
+  --glow-quantum: 0 0 22px rgba(0, 42, 255, 0.45);
+  --glow-classical: 0 0 22px rgba(10, 27, 77, 0.35);
+  --glow-gold: 0 0 25px rgba(0, 42, 255, 0.5);
+  --glow-danger: 0 0 20px rgba(220, 38, 38, 0.45);
+
+  /* Bevel & Architectural frames */
+  --bevel-box-shadow: 0 0 0 1px var(--color-border-subtle), 0 0 0 3px var(--color-bg-base), 0 0 0 4px var(--color-border-strong);
+
+  /* Typography Fonts */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Cinzel', 'Syne', serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+
+  /* Transitions */
   --transition-fast: 0.2s ease;
   --transition-normal: 0.3s ease;
   --transition-slow: 0.5s ease;
-  
+
   /* Spacing */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
   --spacing-lg: 1.5rem;
   --spacing-xl: 2rem;
-  
+
   /* Border Radius */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  
-  /* Z-index layers */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+
+  /* Z-index */
   --z-base: 1;
   --z-dropdown: 10;
   --z-sticky: 100;

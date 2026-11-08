@@ -61,7 +61,7 @@ export class ParticleSystem {
       particleCount: 50,
       particleSize: 3,
       speed: 2,
-      color: '#00E5FF',
+      color: '#0284c7',
       trailLength: 20,
       ...options
     };
@@ -141,7 +141,7 @@ export function createWaveAnimation(element, options = {}) {
     amplitude: 10,
     frequency: 0.02,
     speed: 0.05,
-    color: '#00E5FF',
+    color: '#0284c7',
     thickness: 2,
     opacity: 0.3
   };
@@ -228,7 +228,7 @@ export function createPulseAnimation(element, options = {}) {
     minScale: 1,
     maxScale: 1.1,
     duration: 1000,
-    color: '#FF2E5C',
+    color: '#dc2626',
     intensity: 0.3
   };
   
@@ -334,7 +334,7 @@ export function typeText(element, text, options = {}) {
 export function createExplosion(x, y, options = {}) {
   const defaultOptions = {
     count: 30,
-    colors: ['#00E5FF', '#00FF9D', '#4DABFF'],
+    colors: ['#0284c7', '#16a34a', '#d97706'],
     size: 3,
     speed: 5,
     gravity: 0.1,

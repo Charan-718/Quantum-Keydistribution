@@ -1,229 +1,163 @@
 // File: src/components/classical/EncryptionDecryptionDemo.jsx
 import React, { useState, useEffect } from 'react';
-// import '../../styles/classical.css';
-
-import './EncryptionDecryptionDemo.css'; // In EncryptionDecryptionDemo.jsx
+import { LockIcon, UnlockIcon, CheckCircleIcon, ArrowDownIcon } from '../ui/Icons';
+import './EncryptionDecryptionDemo.css';
 
 function EncryptionDecryptionDemo({ encryptedMessage, sharedSecret, currentStep }) {
   const [cipherText, setCipherText] = useState('');
   const [decryptedText, setDecryptedText] = useState('');
   const [showProcess, setShowProcess] = useState(false);
   const [encryptionSteps, setEncryptionSteps] = useState([]);
-  
+
   const message = 'OPERATION NIGHTFALL PROCEED TO CHECKPOINT ALPHA';
 
   useEffect(() => {
     if (encryptedMessage && currentStep >= 4) {
       setCipherText(encryptedMessage);
-      
-      // Simulate decryption process
+
       const steps = [
-        { text: 'Initializing AES-256 cipher', completed: false },
-        { text: 'Loading shared secret key', completed: false },
-        { text: 'Setting initialization vector (IV)', completed: false },
-        { text: 'Applying Galois/Counter Mode (GCM)', completed: false },
-        { text: 'Processing ciphertext blocks', completed: false },
-        { text: 'Verifying authentication tag', completed: false },
-        { text: 'Decryption complete', completed: false }
+        { text: 'Initialize AES-256 cipher context', completed: false },
+        { text: 'Load 256-bit symmetric key derived via HKDF', completed: false },
+        { text: 'Generate 96-bit Initialization Vector (IV)', completed: false },
+        { text: 'Apply Galois/Counter Mode (GCM) block encryption', completed: false },
+        { text: 'Synthesize 128-bit authentication tag', completed: false },
+        { text: 'Ciphertext verified & decrypted successfully', completed: false }
       ];
       setEncryptionSteps(steps);
-      
-      // Simulate step-by-step decryption
+
       let stepIndex = 0;
       const interval = setInterval(() => {
         if (stepIndex < steps.length) {
-          setEncryptionSteps(prev => 
+          setEncryptionSteps(prev =>
             prev.map((step, idx) => ({
               ...step,
               completed: idx <= stepIndex
             }))
           );
           stepIndex++;
-          
-          // Show decrypted text at the end
+
           if (stepIndex === steps.length) {
             setTimeout(() => {
               setDecryptedText(message);
-            }, 500);
+            }, 300);
           }
         } else {
           clearInterval(interval);
         }
-      }, 800);
-      
+      }, 350);
+
       return () => clearInterval(interval);
     } else {
-      // Reset when not in encryption step
       setCipherText('');
       setDecryptedText('');
       setEncryptionSteps([]);
     }
   }, [encryptedMessage, currentStep, message]);
 
-  const getEncryptionAlgorithm = () => {
-    if (sharedSecret?.length === 64) return 'AES-256-GCM';
-    if (sharedSecret?.length === 48) return 'AES-192-GCM';
-    return 'AES-128-GCM';
-  };
-
   return (
-    <div className="encryption-demo">
+    <div className="encryption-demo-panel">
       <div className="demo-header">
-        <h3>Encryption/Decryption Process</h3>
-        <div className="algorithm-badge">
-          <span className="algorithm-name">{getEncryptionAlgorithm()}</span>
-          <span className="algorithm-mode">Symmetric Encryption</span>
+        <h3 className="demo-title">Symmetric Payload Encryption</h3>
+        <div className="algo-badge">
+          <span className="algo-name">AES-256-GCM</span>
+          <span className="algo-mode">AEAD Mode</span>
         </div>
       </div>
-      
-      <div className="message-flow">
-        {/* Original Message */}
-        <div className="message-box original">
-          <div className="box-header">
-            {/* <span className="box-icon">📝</span> */}
-            <span className="box-title">Original Message</span>
+
+      <div className="payload-flow">
+        {/* Stage 1: Plaintext */}
+        <div className="payload-card plaintext">
+          <div className="card-header-row">
+            <span className="card-badge-label">1. Original Plaintext</span>
+            <span className="card-length">{message.length} bytes</span>
           </div>
-          <div className="box-content">
-            <div className="message-text">{message}</div>
-            <div className="message-meta">
-              <span className="meta-item">Length: {message.length} chars</span>
-              <span className="meta-item">Type: Plaintext</span>
-              <span className="meta-item">Status: Unencrypted</span>
-            </div>
+          <div className="payload-body">
+            <p className="payload-text">{message}</p>
           </div>
         </div>
-        
-        {/* Encryption Arrow */}
-        <div className={`flow-arrow ${currentStep >= 4 ? 'active' : ''}`}>
-          <div className="arrow-icon">↓</div>
-          <div className="arrow-label">
-            {currentStep >= 4 ? 'Encrypting...' : 'Waiting for key'}
-          </div>
+
+        {/* Transition Arrow 1 */}
+        <div className={`flow-transition ${currentStep >= 4 ? 'is-active' : ''}`}>
+          <ArrowDownIcon size={16} />
+          <span className="flow-step-tag">
+            {currentStep >= 4 ? 'Encrypting with Shared Secret' : 'Pending Key Exchange'}
+          </span>
         </div>
-        
-        {/* Encrypted Message */}
-        <div className={`message-box encrypted ${currentStep >= 4 ? 'active' : ''}`}>
-          <div className="box-header">
-            {/* <span className="box-icon">🔐</span> */}
-            <span className="box-title">Encrypted Message</span>
+
+        {/* Stage 2: Ciphertext */}
+        <div className={`payload-card ciphertext ${currentStep >= 4 ? 'is-active' : ''}`}>
+          <div className="card-header-row">
+            <span className="card-badge-label">2. Encrypted Ciphertext</span>
+            {cipherText && (
+              <button
+                type="button"
+                className="toggle-process-btn"
+                onClick={() => setShowProcess(!showProcess)}
+              >
+                {showProcess ? 'Hide Pipeline' : 'Inspect GCM Steps'}
+              </button>
+            )}
           </div>
-          <div className="box-content">
+          <div className="payload-body">
             {cipherText ? (
-              <>
-                <div className="cipher-text">
-                  <code>{cipherText.substring(0, 60)}...</code>
-                </div>
-                <div className="cipher-meta">
-                  <span className="meta-item">Base64 encoded</span>
-                  <span className="meta-item">Secure transmission</span>
-                  <button 
-                    className="view-btn"
-                    onClick={() => setShowProcess(!showProcess)}
-                  >
-                    {showProcess ? 'Hide Process' : 'Show Encryption Steps'}
-                  </button>
-                </div>
-              </>
+              <code className="cipher-block">{cipherText}</code>
             ) : (
-              <div className="placeholder">
-                {/* <div className="placeholder-icon">⏳</div> */}
-                <div className="placeholder-text">Waiting for encryption...</div>
+              <div className="empty-state-notice">
+                <LockIcon size={16} />
+                <span>Waiting for shared key derivation...</span>
               </div>
             )}
           </div>
         </div>
-        
-        {/* Decryption Arrow */}
-        <div className={`flow-arrow ${decryptedText ? 'active' : ''}`}>
-          <div className="arrow-icon">↓</div>
-          <div className="arrow-label">
-            {decryptedText ? 'Decrypted Successfully' : 'Decryption pending'}
-          </div>
+
+        {/* Transition Arrow 2 */}
+        <div className={`flow-transition ${decryptedText ? 'is-active' : ''}`}>
+          <ArrowDownIcon size={16} />
+          <span className="flow-step-tag">
+            {decryptedText ? 'Bob Authenticated & Decrypted' : 'Awaiting Transmission'}
+          </span>
         </div>
-        
-        {/* Decrypted Message */}
-        <div className={`message-box decrypted ${decryptedText ? 'active' : ''}`}>
-          <div className="box-header">
-            {/* <span className="box-icon">✅</span> */}
-            <span className="box-title">Decrypted Message</span>
+
+        {/* Stage 3: Decrypted Text */}
+        <div className={`payload-card decrypted ${decryptedText ? 'is-verified' : ''}`}>
+          <div className="card-header-row">
+            <span className="card-badge-label">3. Decrypted Payload</span>
+            {decryptedText && (
+              <span className="auth-verified-badge">
+                <CheckCircleIcon size={12} />
+                <span>GCM Tag Verified</span>
+              </span>
+            )}
           </div>
-          <div className="box-content">
+          <div className="payload-body">
             {decryptedText ? (
-              <>
-                <div className="decrypted-text">
-                  {decryptedText}
-                </div>
-                <div className="decrypted-meta">
-                  <span className="meta-item success">✓ Integrity verified</span>
-                  <span className="meta-item success">✓ Authenticity confirmed</span>
-                  <span className="meta-item success">✓ Confidentiality maintained</span>
-                </div>
-              </>
+              <p className="payload-text verified">{decryptedText}</p>
             ) : (
-              <div className="placeholder">
-                {/* <div className="placeholder-icon">🔑</div> */}
-                <div className="placeholder-text">Decryption in progress...</div>
+              <div className="empty-state-notice">
+                <UnlockIcon size={16} />
+                <span>Payload unretrieved</span>
               </div>
             )}
           </div>
         </div>
       </div>
-      
-      {/* Encryption Process Details */}
+
+      {/* Expanded GCM Pipeline Steps */}
       {showProcess && encryptionSteps.length > 0 && (
-        <div className="process-details">
-          <h4>Encryption/Decryption Process Steps:</h4>
-          <div className="steps-list">
-            {encryptionSteps.map((step, index) => (
-              <div key={index} className={`process-step ${step.completed ? 'completed' : ''}`}>
-                <div className="step-number">{index + 1}</div>
-                <div className="step-content">
-                  <div className="step-text">{step.text}</div>
-                  {step.completed && (
-                    <div className="step-status">
-                      <span className="status-icon">✓</span>
-                      <span className="status-text">Completed</span>
-                    </div>
-                  )}
-                </div>
+        <div className="gcm-process-drawer">
+          <h4 className="drawer-title">Galois/Counter Mode Pipeline</h4>
+          <div className="drawer-steps-list">
+            {encryptionSteps.map((step, idx) => (
+              <div key={idx} className={`drawer-step-item ${step.completed ? 'is-done' : ''}`}>
+                <span className="step-check-dot">
+                  {step.completed ? <CheckCircleIcon size={12} /> : idx + 1}
+                </span>
+                <span className="step-text">{step.text}</span>
               </div>
             ))}
           </div>
         </div>
       )}
-      
-      {/* Key Usage */}
-      <div className="key-usage">
-        <h4>Key Usage in Encryption:</h4>
-        <div className="usage-grid">
-          <div className="usage-item">
-            {/* <div className="usage-icon">🔑</div> */}
-            <div className="usage-content">
-              <div className="usage-title">Shared Secret</div>
-              <div className="usage-desc">Derived from Diffie-Hellman exchange</div>
-              {sharedSecret && (
-                <code className="usage-key">{sharedSecret.substring(0, 24)}...</code>
-              )}
-            </div>
-          </div>
-          <div className="usage-item">
-            {/* <div className="usage-icon">⚙️</div> */}
-            <div className="usage-content">
-              <div className="usage-title">Key Derivation</div>
-              <div className="usage-desc">HKDF used to create AES key</div>
-              <div className="usage-desc">Salt: Random 128-bit value</div>
-            </div>
-          </div>
-          <div className="usage-item">
-            {/* <div className="usage-icon">🛡️</div> */}
-            <div className="usage-content">
-              <div className="usage-title">Security Features</div>
-              <div className="usage-desc">Authenticated encryption (GCM)</div>
-              <div className="usage-desc">Protects against tampering</div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

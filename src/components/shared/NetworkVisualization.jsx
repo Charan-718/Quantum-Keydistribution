@@ -1,6 +1,12 @@
 // File: src/components/shared/NetworkVisualization.jsx
 import React, { useEffect, useState } from 'react';
-// import '../../styles/shared.css';
+import {
+  UserIcon,
+  ServerIcon,
+  EyeIcon,
+  KeyIcon,
+  FileTextIcon
+} from '../ui/Icons';
 import './NetworkVisualization.css';
 
 function NetworkVisualization({ type, showEavesdropper, isActive, dataPackets }) {
@@ -11,9 +17,9 @@ function NetworkVisualization({ type, showEavesdropper, isActive, dataPackets })
   useEffect(() => {
     // Initialize network nodes
     const networkNodes = [
-      { id: 'alice', label: 'Alice\n(Field Agent)', x: 50, y: 50, type: 'agent' },
-      { id: 'bob', label: 'Bob\n(HQ Server)', x: 450, y: 50, type: 'server' },
-      { id: 'eve', label: 'Eve\n(Eavesdropper)', x: 250, y: 150, type: 'eavesdropper', hidden: !showEavesdropper }
+      { id: 'alice', label: 'Alice (Transmitter)', x: 60, y: 60, type: 'agent' },
+      { id: 'bob', label: 'Bob (Receiver)', x: 440, y: 60, type: 'server' },
+      { id: 'eve', label: 'Eve (Channel Observer)', x: 250, y: 150, type: 'eavesdropper', hidden: !showEavesdropper }
     ];
     
     const networkConnections = [
@@ -31,10 +37,10 @@ function NetworkVisualization({ type, showEavesdropper, isActive, dataPackets })
     if (isActive && dataPackets) {
       const newPackets = dataPackets.map(packet => ({
         id: packet.id,
-        x: 50,
-        y: 50,
-        targetX: 450,
-        targetY: 50,
+        x: 60,
+        y: 60,
+        targetX: 440,
+        targetY: 60,
         progress: 0,
         type: packet.type,
         content: packet.content
@@ -51,14 +57,21 @@ function NetworkVisualization({ type, showEavesdropper, isActive, dataPackets })
         prev.map(packet => ({
           ...packet,
           progress: packet.progress >= 1 ? 0 : packet.progress + 0.02,
-          x: 50 + (450 - 50) * packet.progress,
-          y: 50 + Math.sin(packet.progress * Math.PI) * 50
+          x: 60 + (440 - 60) * packet.progress,
+          y: 60 + Math.sin(packet.progress * Math.PI) * 45
         })).filter(packet => packet.progress < 1.2)
       );
     }, 50);
     
     return () => clearInterval(interval);
   }, [isActive, packets.length]);
+
+  const renderNodeIcon = (nodeType) => {
+    if (nodeType === 'agent') return <UserIcon size={16} />;
+    if (nodeType === 'server') return <ServerIcon size={16} />;
+    if (nodeType === 'eavesdropper') return <EyeIcon size={16} />;
+    return null;
+  };
 
   return (
     <div className="network-visualization">
@@ -88,7 +101,7 @@ function NetworkVisualization({ type, showEavesdropper, isActive, dataPackets })
             }}
           >
             <div className="packet-content">
-              {packet.type === 'key' ? '🔑' : '📨'}
+              {packet.type === 'key' ? <KeyIcon size={13} /> : <FileTextIcon size={13} />}
             </div>
             {packet.type === 'key' && (
               <div className="packet-tooltip">
@@ -109,14 +122,12 @@ function NetworkVisualization({ type, showEavesdropper, isActive, dataPackets })
             }}
           >
             <div className="node-icon">
-              {node.type === 'agent'}
-              {node.type === 'server'}
-              {node.type === 'eavesdropper'}
+              {renderNodeIcon(node.type)}
             </div>
             <div className="node-label">{node.label}</div>
             <div className="node-status">
-              {node.type === 'eavesdropper' && showEavesdropper && 'LISTENING'}
-              {node.type !== 'eavesdropper' && (isActive ? 'ACTIVE' : 'IDLE')}
+              {node.type === 'eavesdropper' && showEavesdropper && 'MONITORING'}
+              {node.type !== 'eavesdropper' && (isActive ? 'TRANSMITTING' : 'IDLE')}
             </div>
           </div>
         ))}
@@ -133,7 +144,7 @@ function NetworkVisualization({ type, showEavesdropper, isActive, dataPackets })
         </div>
         <div className="legend-item">
           <div className="legend-line attack"></div>
-          <span>Eavesdropper Link</span>
+          <span>Interception Attempt</span>
         </div>
         <div className="legend-item">
           <div className="legend-packet key"></div>
@@ -141,7 +152,7 @@ function NetworkVisualization({ type, showEavesdropper, isActive, dataPackets })
         </div>
         <div className="legend-item">
           <div className="legend-packet data"></div>
-          <span>Data Transmission</span>
+          <span>Ciphertext Stream</span>
         </div>
       </div>
     </div>

@@ -1,0 +1,78 @@
+/* File: src/components/ui/Badge.css */
+
+.ui-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wide);
+  border-radius: var(--radius-xs);
+  border: 1px solid transparent;
+  line-height: 1;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.ui-badge--sm {
+  font-size: var(--font-size-2xs);
+  padding: 3px 6px;
+}
+
+.ui-badge--md {
+  font-size: var(--font-size-xs);
+  padding: 4px 8px;
+}
+
+.ui-badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+  flex-shrink: 0;
+}
+
+.ui-badge__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* VARIANTS */
+.ui-badge--neutral {
+  background-color: var(--color-surface-elevated);
+  color: var(--color-text-secondary);
+  border-color: var(--color-border-subtle);
+}
+
+.ui-badge--quantum {
+  background-color: var(--color-quantum-soft);
+  color: var(--color-quantum-contrast);
+  border-color: rgba(45, 212, 191, 0.45);
+}
+
+.ui-badge--classical {
+  background-color: var(--color-classical-soft);
+  color: var(--color-classical-contrast);
+  border-color: rgba(212, 175, 55, 0.5);
+}
+
+.ui-badge--success {
+  background-color: var(--color-success-soft);
+  color: var(--color-success);
+  border-color: var(--color-success-border);
+}
+
+.ui-badge--warning {
+  background-color: var(--color-warning-soft);
+  color: var(--color-warning);
+  border-color: var(--color-warning-border);
+}
+
+.ui-badge--error {
+  background-color: var(--color-error-soft);
+  color: var(--color-error);
+  border-color: var(--color-error-border);
+}
+
