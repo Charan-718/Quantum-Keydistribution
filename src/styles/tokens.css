@@ -532,6 +532,8 @@
 
 /* DARK THEME: Keycap and Enclosure Surface Overrides */
 [data-theme="dark"] {
+  --keycap-typography-main: #f8fafc;
+  --keycap-typography-secondary: #cbd5e1;
   --panel-l1-surface: linear-gradient(180deg, #141826 0%, #101422 40%, #0c101c 100%);
   --panel-l1-border-top: 2.5px solid rgba(255, 255, 255, 0.2);
   --panel-l1-border-left: 2px solid rgba(255, 255, 255, 0.1);
@@ -600,11 +602,11 @@
   --color-border-focus: #002aff;
 
   /* Typography Colors: Dark Obsidian Slate on Porcelain Keycaps */
-  --color-text-primary: #0f172a;
-  --color-text-secondary: #334155;
-  --color-text-muted: #64748b;
+  --color-text-primary: #070a14;
+  --color-text-secondary: #1e293b;
+  --color-text-muted: #334155;
   --color-text-inverse: #ffffff;
-  --color-text-canvas: #0f172a; /* Text rendered directly on silver canvas */
+  --color-text-canvas: #070a14; /* Text rendered directly on silver canvas */
   --color-text-gold: #002aff;
 
   /* 10% ACCENT / ACTION DOMAINS: Electric Cobalt Blue */

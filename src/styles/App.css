@@ -723,7 +723,10 @@
 [data-theme="dark"] .advantages-title,
 [data-theme="dark"] .table-heading,
 [data-theme="dark"] .party-name,
-[data-theme="dark"] .panel-header-title {
+[data-theme="dark"] .panel-header-title,
+[data-theme="dark"] .card-badge-label,
+[data-theme="dark"] .assessment-title,
+[data-theme="dark"] .threats-title {
   color: #ffffff !important;
 }
 
@@ -734,6 +737,12 @@
 [data-theme="dark"] .control-field-hint,
 [data-theme="dark"] .step-desc,
 [data-theme="dark"] .party-role,
+[data-theme="dark"] .exponent-label,
+[data-theme="dark"] .key-type,
+[data-theme="dark"] .tel-name,
+[data-theme="dark"] .ind-label,
+[data-theme="dark"] .bf-label,
+[data-theme="dark"] .phase-detail,
 [data-theme="dark"] .header-desc {
   color: #cbd5e1 !important;
 }
@@ -1002,8 +1011,8 @@
 
 [data-theme="light"] .val-block.classical .val-data,
 [data-theme="light"] .matrix-cell.classical-col.has-advantage {
-  color: #fcc800 !important;
-  font-weight: 700 !important;
+  color: #070a14 !important;
+  font-weight: 800 !important;
 }
 
 [data-theme="light"] .pipeline-step {
@@ -1067,6 +1076,7 @@
 [data-theme="dark"] .party-card,
 [data-theme="dark"] .payload-card:not(.encrypted),
 [data-theme="dark"] .progress-tracker,
+[data-theme="dark"] .quantum-advantages-card,
 [data-theme="dark"] .quantum-phase-tracker {
   background: linear-gradient(180deg, #181d2a 0%, #101420 60%, #0a0d16 100%) !important;
   border-top: 2px solid rgba(255, 255, 255, 0.3) !important;

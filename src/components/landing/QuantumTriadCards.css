@@ -448,6 +448,35 @@
   font-weight: 900;
 }
 
+/* Light Theme High Contrast Alerts */
+[data-theme="light"] .card-footer-metrics-compact .metric-pill.alert {
+  background: #ffffff !important;
+  border: 1.5px solid #002aff !important;
+  box-shadow: 0 1px 3px rgba(0, 42, 255, 0.15) !important;
+}
+
+[data-theme="light"] .card-footer-metrics-compact .metric-pill.alert .m-label {
+  color: #070a14 !important;
+  font-weight: 800 !important;
+}
+
+[data-theme="light"] .card-footer-metrics-compact .metric-pill.alert .m-val {
+  color: #002aff !important;
+  font-weight: 900 !important;
+}
+
+[data-theme="light"] .qber-label-compact {
+  color: #070a14 !important;
+  font-weight: 800 !important;
+}
+
+[data-theme="light"] .card-badge.alert-pill {
+  background: #070a14 !important;
+  color: #ffd600 !important;
+  border: 1px solid #ffd600 !important;
+  font-weight: 800 !important;
+}
+
 /* ==========================================================================
    DARK THEME CONTRAST (Transparent Glass + 4-Color Axiom)
    ========================================================================== */

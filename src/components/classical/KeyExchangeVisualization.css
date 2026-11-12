@@ -45,11 +45,18 @@
 }
 
 [data-theme="dark"] .party-role {
-  color: #94a3b8 !important;
+  color: #cbd5e1 !important;
+  font-weight: 600 !important;
 }
 
 [data-theme="dark"] .exponent-label {
-  color: #94a3b8 !important;
+  color: #cbd5e1 !important;
+  font-weight: 600 !important;
+}
+
+[data-theme="dark"] .key-type {
+  color: #cbd5e1 !important;
+  font-weight: 600 !important;
 }
 
 [data-theme="dark"] .secret-title {
@@ -188,6 +195,11 @@
   color: var(--color-text-muted);
 }
 
+[data-theme="light"] .party-role {
+  color: #1e293b !important;
+  font-weight: 600 !important;
+}
+
 .party-keys-block {
   display: flex;
   flex-direction: column;
@@ -205,6 +217,11 @@
   color: var(--color-text-muted);
 }
 
+[data-theme="light"] .key-type {
+  color: #070a14 !important;
+  font-weight: 700 !important;
+}
+
 .key-snippet {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -215,8 +232,29 @@
   color: var(--color-text-secondary);
 }
 
+[data-theme="light"] .key-snippet {
+  background-color: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: #070a14 !important;
+  font-weight: 700 !important;
+}
+
 .key-snippet.public {
   color: var(--color-classical-contrast);
+}
+
+[data-theme="light"] .key-snippet.public {
+  color: #002aff !important;
+  background-color: #eff6ff !important;
+  border: 1.5px solid #bfdbfe !important;
+  font-weight: 800 !important;
+}
+
+[data-theme="light"] .wire-line {
+  background-color: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: #070a14 !important;
+  font-weight: 700 !important;
 }
 
 /* Channel Wire Core */

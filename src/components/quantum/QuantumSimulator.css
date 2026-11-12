@@ -112,13 +112,25 @@
 }
 
 [data-theme="dark"] .quantum-phase-item:not(.is-active) .phase-detail {
-  color: #94a3b8 !important;
+  color: #cbd5e1 !important;
+  font-weight: 600 !important;
 }
 
 [data-theme="dark"] .quantum-phase-item:not(.is-active) .phase-disc {
   background: #002aff !important;
   color: #ffffff !important;
   border-color: #001275 !important;
+}
+
+[data-theme="light"] .quantum-phase-item:not(.is-active) .phase-label {
+  color: #070a14 !important;
+  font-weight: 700 !important;
+}
+
+[data-theme="light"] .quantum-phase-item:not(.is-active) .phase-disc {
+  background: #002aff !important;
+  color: #ffffff !important;
+  font-weight: 800 !important;
 }
 
 .quantum-phase-item:hover {

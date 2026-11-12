@@ -202,16 +202,57 @@
 }
 
 .matrix-cell.has-advantage {
-  color: var(--color-text-primary);
-  font-weight: var(--font-weight-bold);
+  color: #070a14 !important;
+  font-weight: 800 !important;
 }
 
 .quantum-col.has-advantage {
-  color: var(--color-quantum-contrast);
+  color: #002aff !important;
+  font-weight: 800 !important;
 }
 
 .classical-col.has-advantage {
-  color: var(--color-classical-contrast);
+  color: #070a14 !important;
+  font-weight: 800 !important;
+}
+
+[data-theme="light"] .matrix-cell {
+  color: #070a14 !important;
+  font-weight: 600;
+}
+
+[data-theme="light"] .aspect-col {
+  color: #070a14 !important;
+  font-weight: 700;
+}
+
+[data-theme="light"] .classical-col {
+  color: #334155 !important;
+}
+
+[data-theme="light"] .quantum-col {
+  color: #334155 !important;
+}
+
+[data-theme="light"] .matrix-header {
+  background-color: #e2e8f0 !important;
+  color: #070a14 !important;
+  font-weight: 800 !important;
+}
+
+[data-theme="light"] .adv-feature-title {
+  color: #070a14 !important;
+  font-weight: 800 !important;
+}
+
+[data-theme="light"] .adv-feature-desc {
+  color: #1e293b !important;
+  font-weight: 500;
+}
+
+[data-theme="light"] .adv-m-label {
+  color: #070a14 !important;
+  font-weight: 700 !important;
 }
 
 /* ==========================================================================

@@ -116,13 +116,30 @@
 }
 
 [data-theme="dark"] .step-item:not(.is-current) .step-desc {
-  color: #94a3b8 !important;
+  color: #cbd5e1 !important;
+  font-weight: 600 !important;
 }
 
 [data-theme="dark"] .step-item:not(.is-current) .step-disc {
   background: #002aff !important;
   color: #ffffff !important;
   border-color: #001275 !important;
+}
+
+[data-theme="light"] .step-item:not(.is-current) .step-label {
+  color: #070a14 !important;
+  font-weight: 700 !important;
+}
+
+[data-theme="light"] .step-item:not(.is-current) .step-desc {
+  color: #334155 !important;
+  font-weight: 600 !important;
+}
+
+[data-theme="light"] .step-item:not(.is-current) .step-disc {
+  background: #002aff !important;
+  color: #ffffff !important;
+  font-weight: 800 !important;
 }
 
 .step-item:hover {

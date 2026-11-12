@@ -59,16 +59,33 @@
 }
 
 .detector-status-pill.nominal {
-  background-color: var(--color-success-soft);
-  color: var(--color-success);
-  border: 1px solid var(--color-success-border);
+  background-color: #070a14 !important;
+  color: #ffd600 !important;
+  border: 1.5px solid #002aff !important;
+  box-shadow: 0 2px 8px rgba(0, 42, 255, 0.25) !important;
 }
 
 .detector-status-pill.critical {
-  background-color: var(--color-error-soft);
-  color: var(--color-error);
-  border: 1px solid var(--color-error-border);
-  box-shadow: 0 0 10px var(--color-error);
+  background-color: #070a14 !important;
+  color: #ffd600 !important;
+  border: 1.5px solid #ffd600 !important;
+  box-shadow: 0 0 12px rgba(255, 214, 0, 0.45) !important;
+}
+
+[data-theme="light"] .confidence-label,
+[data-theme="light"] .thresh-label {
+  color: #070a14 !important;
+  font-weight: 700 !important;
+}
+
+[data-theme="light"] .confidence-score {
+  color: #002aff !important;
+  font-weight: 800 !important;
+}
+
+[data-theme="light"] .thresh-marker {
+  color: #002aff !important;
+  font-weight: 800 !important;
 }
 
 /* Confidence Bar */

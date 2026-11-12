@@ -50,6 +50,14 @@ function App() {
     }
   })();
 
+  // Keep documentElement and localStorage in sync with themeMode
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', themeMode);
+    try {
+      localStorage.setItem('theme', themeMode);
+    } catch (e) {}
+  }, [themeMode]);
+
   // Legal & Technical Modals
   const [showTosModal, setShowTosModal] = useState(false);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);

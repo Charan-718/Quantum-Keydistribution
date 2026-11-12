@@ -76,3 +76,34 @@
   border-color: var(--color-error-border);
 }
 
+/* Light Mode High Contrast Adjustments */
+[data-theme="light"] .ui-badge--success,
+[data-theme="light"] .ui-badge--warning {
+  background-color: #070a14 !important;
+  color: #ffd600 !important;
+  border: 1.5px solid #002aff !important;
+  box-shadow: 0 2px 6px rgba(0, 42, 255, 0.18) !important;
+  font-weight: 700 !important;
+}
+
+[data-theme="light"] .ui-badge--quantum {
+  background-color: #eff6ff !important;
+  color: #002aff !important;
+  border: 1.5px solid #002aff !important;
+  font-weight: 700 !important;
+}
+
+[data-theme="light"] .ui-badge--classical {
+  background-color: #f8fafc !important;
+  color: #070a14 !important;
+  border: 1.5px solid #64748b !important;
+  font-weight: 700 !important;
+}
+
+[data-theme="light"] .ui-badge--neutral {
+  background-color: #ffffff !important;
+  color: #070a14 !important;
+  border: 1.5px solid #cbd5e1 !important;
+  font-weight: 700 !important;
+}
+
