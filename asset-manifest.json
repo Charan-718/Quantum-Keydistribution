@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Quantum-Keydistribution/static/css/main.4f74d741.css",
+    "main.css": "/Quantum-Keydistribution/static/css/main.d7f3ea02.css",
     "main.js": "/Quantum-Keydistribution/static/js/main.9b1e3e4b.js",
     "static/js/206.cd5e949e.chunk.js": "/Quantum-Keydistribution/static/js/206.cd5e949e.chunk.js",
     "static/media/Drop.jpeg": "/Quantum-Keydistribution/static/media/Drop.7f20a328c3b2f54ba7f6.jpeg",
     "index.html": "/Quantum-Keydistribution/index.html"
   },
   "entrypoints": [
-    "static/css/main.4f74d741.css",
+    "static/css/main.d7f3ea02.css",
     "static/js/main.9b1e3e4b.js"
   ]
 }
